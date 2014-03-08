@@ -1,4 +1,15 @@
-var config = {}
-config.mongodb_uri = process.env.MONGOLAB_URI || 'mongodb://localhost/treatsforlife_dev';
-config.app_port = process.env.PORT || 3000;
-module.exports = config;
+module.exports = {
+    development: {
+        db: 'mongodb://localhost/treatsforlife_dev',
+        app: {
+            port: 3000
+        }
+    },
+    staging: {},
+    production: {
+        db: process.env.MONGOLAB_URI,
+        app: {
+            port: process.env.PORT
+        }
+    }
+};
