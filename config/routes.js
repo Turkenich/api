@@ -1,16 +1,20 @@
 module.exports = function(app, models) {
-    var Pets = models.Pets;
+    var Pet = models.Pet;
+    var Video = models.Video;
 
     ///////////////
+    //    PETS   //
+    ///////////////
+
     // LIST PETS //
     app.get('/', function(req, res) {
-        Pets.find({}, function (err, pets) {
-            res.send(pets);
-        });
+        Pet.find({})
+            .populate('videos', 'url')
+            .exec(function (err, pets) {
+                res.send(pets);
+            });
     });
 
-
-    ////////////////
     // SINGLE PET //
     app.namespace('/pet', function() {
         // ADD //
@@ -20,49 +24,87 @@ module.exports = function(app, models) {
                 return;
             }
 
-            var pet = new Pets({ name: req.body.name });
-            pet.save(function (err, dog) {
+            var pet = new Pet({ name: req.body.name });
+            pet.save(function (err, _pet) {
                 if (err){
-                    if (err.code === 11000)
-                        res.send('Sorry a dog named ' + req.body.name + ' already exists in our database');
-                    else {
-                        console.error(err.err);
-                        res.send(err);
-                    }
+                    console.error(err.err);
+                    res.send(err)
                 }
                 else
-                    res.send(dog.name + ' has been added to the database successfully');
+                    res.send(_pet.name + ' has been added to the database successfully');
             });
         });
 
         // GET //
         app.get('/:id', function(req, res) {
-            Pets.findById(req.params.id, function (err, pet) {
-                res.send(pet);
-            });
+            Pet.findById(req.params.id)
+                .populate('videos', 'url')
+                .exec(function (err, pet) {
+                    res.send(pet);
+                });
         });
 
         // UPDATE //
         app.put('/:id', function(req, res) {
-            Pets.findById(req.params.id, function (err, pet) {
-                pet.name= req.body.name;
+            Pet.findById(req.params.id, function (err, pet) {
+                pet.name = req.body.name;
                 return pet.save(function (err) {
-                    if (!err) {
-                        console.log("updated");
-                    } else {
-                        console.log(err);
-                    }
-                    return res.send(pet);
+                    console.log(!err ? 'updated' : err);
                 });
             });
         });
 
         // DEL //
         app.del('/:id', function(req, res){
-            return Pets.findById(req.params.id, function (err, pet) {
+            return Pet.findById(req.params.id, function (err, pet) {
                 return pet.remove(function (err) {
                     if (!err) {
                         var message = pet.name + ' [' + req.params.id + '] has been deleted successfully';
+                        console.log(message);
+                        res.send(message);
+                    } else {
+                        console.log(err);
+                        res.send(err.message, 500);
+                    }
+                });
+            });
+        });
+    });
+
+    ///////////////
+    //   VIDEOS  //
+    ///////////////
+    app.namespace('/video', function() {
+        // ADD //
+        app.post('/', function(req, res) {
+            if (!req.body.hasOwnProperty('pet') || !req.body.hasOwnProperty('url')) {
+                res.send('missing param', 500);
+                return;
+            }
+
+            Pet.findById(req.body.pet, function (err, pet) {
+                var video = new Video({ url: req.body.url });
+                video.save(function (err, _video) {
+                    if (err){
+                        console.error(err.err);
+                        res.send(err)
+                    }
+                    else {
+                        pet.videos.push(video.id);
+                        res.send(_video.url + ' has been added to ' + pet.name + '\'s videos');
+                    }
+                });
+                pet.videos.push(video.id);
+                pet.save();
+            });
+        });
+
+        // DEL //
+        app.del('/:id', function(req, res){
+            return Video.findById(req.params.id, function (err, video) {
+                return video.remove(function (err) {
+                    if (!err) {
+                        var message = video.id + ' has been deleted successfully';
                         console.log(message);
                         res.send(message);
                     } else {
