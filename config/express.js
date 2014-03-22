@@ -10,7 +10,7 @@ module.exports = function (app, config) {
     app.use(require('connect-multiparty')());
     app.use(express.methodOverride());
     app.use(express.cookieParser('d1A76YqsMksz6Mf5mTJI1b530EXjP87d'));
-    app.use(express.session({ secret: 'd1A76YqsMksz6Mf5mTJI1b530EXjP87d' }));
+    //app.use(express.session({ secret: 'd1A76YqsMksz6Mf5mTJI1b530EXjP87d' }));
     app.use(app.router);
 
     //specific environments
