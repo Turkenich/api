@@ -1,5 +1,5 @@
 var mongoose = require('mongoose'),
-    Pet = mongoose.model('Pet'),
+    Pet = mongoose.model('User'),
     Video = mongoose.model('Video');
 
 exports.create = function(req, res) {

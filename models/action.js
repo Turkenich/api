@@ -7,7 +7,7 @@ var mongoose = require('mongoose'),
 //schema
 var actionSchema = new Schema({
     type     : {type: String, required: true },
-    pet      : { type: Schema.Types.ObjectId, ref: 'Pet' },
+    pet      : { type: Schema.Types.ObjectId, ref: 'User' },
     user     : { type: Schema.Types.ObjectId, ref: 'User' }
 });
 actionSchema.plugin(timestamps);
