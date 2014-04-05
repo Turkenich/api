@@ -1,35 +1,35 @@
 var mongoose = require('mongoose'),
     Pet = mongoose.model('Pet'),
-    Video = mongoose.model('Video');
+    Media = mongoose.model('Media');
 
 exports.create = function(req, res) {
-    if (!req.body.hasOwnProperty('pet') || !req.body.hasOwnProperty('url')) {
+    if (!req.body.hasOwnProperty('pet') || !req.body.hasOwnProperty('type') || !req.body.hasOwnProperty('url')) {
         res.send('missing param', 500);
         return;
     }
 
     Pet.findById(req.body.pet, function (err, pet) {
-        var video = new Video({ url: req.body.url });
-        video.save(function (err, _video) {
+        var media = new Media({ type: req.body.type, url: req.body.url });
+        media.save(function (err, _media) {
             if (err){
                 console.error(err.err);
                 res.send(err)
             }
             else {
-                pet.videos.push(video.id);
-                res.send(_video.url + ' has been added to ' + pet.name + '\'s videos');
+                pet.media.push(media.id);
+                res.send(_media.url + ' [' + _media.type + '] has been added to ' + pet.name + '\'s media');
             }
         });
-        pet.videos.push(video.id);
+        pet.media.push(media.id);
         pet.save();
     });
 };
 
 exports.delete = function(req, res) {
-    return Video.findById(req.params.id, function (err, video) {
-        return video.remove(function (err) {
+    return Media.findById(req.params.id, function (err, media) {
+        return media.remove(function (err) {
             if (!err) {
-                var message = video.id + ' has been deleted successfully';
+                var message = media.id + ' has been deleted successfully';
                 console.log(message);
                 res.send(message) ;
             } else {

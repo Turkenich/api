@@ -1,6 +1,6 @@
 //module dependencies
 var pets = require('../controllers/pets'),
-    videos = require('../controllers/videos');
+    media = require('../controllers/media');
 
 module.exports = function(app) {
     // pets
@@ -12,9 +12,9 @@ module.exports = function(app) {
         app.del('/:id', pets.delete);
     });
 
-    //videos
-    app.namespace('/video', function() {
-        app.post('/', videos.create);
-        app.del('/:id', videos.delete);
+    //media
+    app.namespace('/media', function() {
+        app.post('/', media.create);
+        app.del('/:id', media.delete);
     });
 };

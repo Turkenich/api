@@ -3,7 +3,7 @@ var mongoose = require('mongoose'),
 
 exports.list = function(req, res) {
     Pet.find({})
-        .populate('videos', 'url')
+        .populate('media', 'type url')
         .exec(function (err, pets) {
             res.send(pets);
         });
@@ -28,7 +28,7 @@ exports.create = function(req, res) {
 
 exports.get = function(req, res) {
     Pet.findById(req.params.id)
-        .populate('videos', 'url')
+        .populate('media', 'type url')
         .exec(function (err, pet) {
             res.send(pet);
         });

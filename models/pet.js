@@ -8,7 +8,7 @@ var petSchema = new Schema({
     name     : { type: String, required: true },
     kennel   : { type: Schema.Types.ObjectId, ref: 'Kennel' },
     owner    : { type: Schema.Types.ObjectId, ref: 'User' },
-    videos   : [{ type: Schema.Types.ObjectId, ref: 'Video' }]
+    media    : [{ type: Schema.Types.ObjectId, ref: 'Media' }]
 });
 petSchema.plugin(timestamps);
 
