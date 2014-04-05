@@ -31,7 +31,7 @@ exports.delete = function(req, res) {
             if (!err) {
                 var message = video.id + ' has been deleted successfully';
                 console.log(message);
-                res.send(message);
+                res.send(message) ;
             } else {
                 console.log(err);
                 res.send(err.message, 500);
