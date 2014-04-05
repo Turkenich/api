@@ -36,9 +36,12 @@ exports.get = function(req, res) {
 
 exports.update = function(req, res) {
     Pet.findById(req.params.id, function (err, pet) {
+        var oldName = pet.name;
         pet.name = req.body.name;
         return pet.save(function (err) {
-            console.log(!err ? 'updated' : err);
+            var msg = !err ? ('\"' + oldName + '\" has been renamed to \"' + pet.name + '\"') : err;
+            res.send(msg);
+            console.log(msg);
         });
     });
 };
