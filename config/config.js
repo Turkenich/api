@@ -2,8 +2,7 @@ module.exports = {
     development: {
         db: 'mongodb://localhost/treatsforlife_dev',
         app: {
-            port: 3000,
-            sopher: 1
+            port: 3000
         }
     },
     staging: {},
