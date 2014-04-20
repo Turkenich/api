@@ -2,6 +2,14 @@ var mongoose = require('mongoose'),
     Pet = mongoose.model('Pet'),
     Media = mongoose.model('Media');
 
+exports.list = function(req, res) {
+    Media.find({})
+        .exec(function (err, pets) {
+            res.send(pets);
+        });
+    ;
+};
+
 exports.create = function(req, res) {
     if (!req.body.hasOwnProperty('pet') || !req.body.hasOwnProperty('type') || !req.body.hasOwnProperty('url')) {
         res.send('missing param', 500);

@@ -14,6 +14,7 @@ module.exports = function(app) {
 
     //media
     app.namespace('/media', function() {
+        app.get('/', media.list);
         app.post('/', media.create);
         app.del('/:id', media.delete);
     });
