@@ -3,7 +3,7 @@ var express = require('express'),
     http = require('http'),
     fs = require('fs'),
     env = process.env.NODE_ENV || 'development',
-    config = require('./config/config')[env],
+    config = require('./config/environments')[env],
     mongoose = require('mongoose')
 
 require('express-namespace');
