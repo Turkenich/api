@@ -5,6 +5,7 @@ var mongoose = require('mongoose'),
 exports.list = function(req, res) {
     Media.find({})
         .exec(function (err, pets) {
+            res.header('Access-Control-Allow-Origin', "*");
             res.send(pets);
         });
     ;
