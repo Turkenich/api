@@ -6,8 +6,15 @@ var mongoose = require('mongoose'),
 
 //schema
 var mediaSchema = new Schema({
-    url:    { type: String, required: true },
-    type:   {type: String, enum: ['im', 'vd'], required: true }
+    caption: {type: String, required: true},
+    created_time: {type: Number, required: true},
+    ext_id: {type: String, required:true},
+    image: {type: String, required: true},
+    link: {type: String, required: true},
+    type: {type: String, enum: ['im', 'vd'], required: true },
+    url: { type: String, required: true },
+    user_id: {type: String, required: true},
+    video: {type: String, required: true}
 });
 mediaSchema.plugin(timestamps);
 
