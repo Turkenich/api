@@ -25,11 +25,11 @@ exports.create = function(req, res) {
                 res.send(err)
             }
             else {
-                pet.media.push(media.id);
+                pet.media.push(_media.id);
+                pet.save();
                 res.send(_media.url + ' [' + _media.type + '] has been added to ' + pet.name + '\'s media');
             }
         });
-        pet.save();
     });
 };
 
