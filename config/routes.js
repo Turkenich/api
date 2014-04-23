@@ -1,12 +1,14 @@
 //module dependencies
 var pets = require('../controllers/pets'),
-    media = require('../controllers/media');
+    media = require('../controllers/media'),
+    kennels = require('../controllers/kennels');
 
 module.exports = function(app) {
     // pets
     app.get('/', pets.list);
     app.get('/pets', pets.list);
     app.namespace('/pet', function() {
+        app.get('/', pets.list);
         app.post('/', pets.create);
         app.get('/:id', pets.get);
         app.put('/:id', pets.update);
@@ -19,5 +21,13 @@ module.exports = function(app) {
         app.post('/', media.create);
         app.put('/:id', media.update);
         app.del('/:id', media.delete);
+    });
+
+    //kennels
+    app.namespace('/kennel', function() {
+        app.get('/', kennels.list);
+        app.post('/', kennels.create);
+        app.put('/:id', kennels.update);
+        app.del('/:id', kennels.delete);
     });
 };

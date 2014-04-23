@@ -15,7 +15,7 @@ exports.create = function(req, res) {
         return;
     }
 
-    var pet = new Pet({ name: req.body.name });
+    var pet = new Pet(req.body);
     pet.save(function (err, _pet) {
         if (err){
             console.error(err.err);

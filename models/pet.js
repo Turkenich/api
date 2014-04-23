@@ -6,6 +6,7 @@ var mongoose = require('mongoose'),
 //schema
 var petSchema = new Schema({
     name     : { type: String, required: true },
+    image     : { type: String, required: true },
     kennel   : { type: Schema.Types.ObjectId, ref: 'Kennel' },
     owner    : { type: Schema.Types.ObjectId, ref: 'User' },
     media    : [{ type: Schema.Types.ObjectId, ref: 'Media' }]
