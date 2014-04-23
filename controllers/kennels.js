@@ -9,32 +9,36 @@ exports.list = function(req, res) {
 };
 
 exports.create = function(req, res) {
-    var Kennel = new Kennel(req.body);
-    Kennel.save(function (err, _Kennel) {
+
+    if (!req.body.name) req.body.name='name';
+    if (!req.body.user_id) req.body.user_id='1';
+
+    var kennel = new Kennel(req.body);
+    kennel.save(function (err, kennel) {
         if (err){
-            console.error(err.err);
+            console.error(err.name);
             res.send(err)
         }
         else
-            res.send(_Kennel.name + ' has been added to the database successfully');
+            res.send(kennel);
     });
 };
 
 exports.get = function(req, res) {
     Kennel.findById(req.params.id)
-        .exec(function (err, Kennel) {
-            res.send(Kennel);
+        .exec(function (err, kennel) {
+            res.send(kennel);
         });
 };
 
 exports.update = function(req, res) {
-    Kennel.findById(req.params.id, function (err, Kennel) {
-        for (var k in Kennel){
+    Kennel.findById(req.params.id, function (err, kennel) {
+        for (var k in req.body){
             if (req.body[k])
-                Kennel[k] = req.body[k];
+                kennel[k] = req.body[k];
         }
-        return Kennel.save(function (err) {
-            var msg = !err ? ('Kennel updated successfully \"' + Kennel.name + '\"') : err;
+        return kennel.save(function (err) {
+            var msg = !err ? ('Kennel updated successfully \"' + kennel.name + '\"') : err;
             res.send(msg);
             console.log(msg);
         });
