@@ -6,9 +6,9 @@ var mongoose = require('mongoose'),
 
 //schema
 var userSchema = new Schema({
-    name     : { type: String, required: true },
-    email    : { type: String, required:true },
-    pet      : { type: Schema.Types.ObjectId, ref: 'User' }
+    name     : { type: String, default: 'New User', required: true },
+    email    : { type: String, default: 'New@User.com', required:true },
+    pet      : { type: Schema.Types.ObjectId, default: null, ref: 'User' }
 });
 userSchema.plugin(timestamps);
 

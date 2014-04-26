@@ -2,19 +2,14 @@ var mongoose = require('mongoose'),
     User = mongoose.model('User');
 
 exports.create = function(req, res) {
-    if (!req.body.hasOwnProperty('name')) {
-        res.send('server error', 500);
-        return;
-    }
-
-    var user = new User({ name: req.body.name });
+    var user = new User(req.body);
     user.save(function (err, _user) {
         if (err){
             console.error(err.err);
             res.send(err)
         }
         else
-            res.send(_user.name + ' has been added to the database successfully');
+            res.send(_user);
     });
 };
 
@@ -23,6 +18,13 @@ exports.get = function(req, res) {
         .populate('pet')
         .exec(function (err, user) {
             res.send(user);
+        });
+};
+
+exports.list = function(req, res) {
+    User.find({})
+        .exec(function (err, users) {
+            res.send(users);
         });
 };
 

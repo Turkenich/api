@@ -1,5 +1,6 @@
 //module dependencies
 var pets = require('../controllers/pets'),
+    users = require('../controllers/users'),
     media = require('../controllers/media'),
     treats = require('../controllers/treats'),
     donations = require('../controllers/donations'),
@@ -15,6 +16,14 @@ module.exports = function(app) {
         app.get('/:id', pets.get);
         app.put('/:id', pets.update);
         app.del('/:id', pets.delete);
+    });
+
+    //users
+    app.namespace('/user', function() {
+        app.get('/', users.list);
+        app.post('/', users.create);
+        app.put('/:id', users.update);
+        app.del('/:id', users.delete);
     });
 
     //media
