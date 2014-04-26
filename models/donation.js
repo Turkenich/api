@@ -6,9 +6,8 @@ var mongoose = require('mongoose'),
 
 //schema
 var donationSchema = new Schema({
-    name     : { type: String, default:'Untitled Donation', required: true },
-    image  : { type: String, default:' ', required: true },
-    price  : { type: Number, default:'5', required: true }
+    treat  : { type:Schema.Types.ObjectId, default:null, required:false },
+    user   : { type:Schema.Types.ObjectId, default:null, required:false }
 });
 donationSchema.plugin(timestamps);
 
