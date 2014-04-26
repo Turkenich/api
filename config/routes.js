@@ -2,6 +2,7 @@
 var pets = require('../controllers/pets'),
     media = require('../controllers/media'),
     treats = require('../controllers/treats'),
+    donations = require('../controllers/donations'),
     kennels = require('../controllers/kennels');
 
 module.exports = function(app) {
@@ -39,5 +40,13 @@ module.exports = function(app) {
         app.post('/', treats.create);
         app.put('/:id', treats.update);
         app.del('/:id', treats.delete);
+    });
+
+    //donations
+    app.namespace('/donation', function() {
+        app.get('/', donations.list);
+        app.post('/', donations.create);
+        app.put('/:id', donations.update);
+        app.del('/:id', donations.delete);
     });
 };

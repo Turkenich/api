@@ -35,9 +35,8 @@ exports.update = function(req, res) {
                 treat[k] = req.body[k];
         }
         return treat.save(function (err) {
-            var msg = !err ? ('Treat updated successfully \"' + treat.name + '\"') : err;
-            res.send(msg);
-            console.log(msg);
+            res.send(treat);
+            console.log(err || treat);
         });
     });
 };

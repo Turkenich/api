@@ -61,8 +61,8 @@ exports.create = function (req, res) {
 
 exports.update = function (req, res) {
 
-    if (req.body.hasOwnProperty('id')) {
-        Media.findById(req.params.id, function (err, media) {
+    if (req.body.hasOwnProperty('_id')) {
+        Media.findById(req.params._id, function (err, media) {
             for (var m in media) {
                 if (req.body[m]) {
                     media[m] = req.body[m];
@@ -73,17 +73,19 @@ exports.update = function (req, res) {
                     console.error(err.err);
                     res.send(err)
                 }
+                if (req.body.hasOwnProperty('pet')) {
+                    Pet.findById(req.body.pet, function (err, pet) {
+                        pet.media.push(req.params.id);
+                        pet.save();
+                        res.send(_media);
+                    });
+                }else{
+                    res.send(_media);
+                }
             });
         });
     }
 
-    if (req.body.hasOwnProperty('id') && req.body.hasOwnProperty('pet')) {
-        Pet.findById(req.body.pet, function (err, pet) {
-            pet.media.push(req.params.id);
-            pet.save();
-            res.send(req.params.url + ' [' + req.params.type + '] has been added to ' + pet.name + '\'s media');
-        });
-    }
 
 };
 

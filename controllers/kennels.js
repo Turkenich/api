@@ -35,9 +35,8 @@ exports.update = function(req, res) {
                 kennel[k] = req.body[k];
         }
         return kennel.save(function (err) {
-            var msg = !err ? ('Kennel updated successfully \"' + kennel.name + '\"') : err;
-            res.send(msg);
-            console.log(msg);
+            res.send(kennel);
+            console.log(err || kennel);
         });
     });
 };

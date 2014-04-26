@@ -41,7 +41,7 @@ exports.update = function(req, res) {
         }
         return pet.save(function (err) {
             res.send(pet);
-            console.log(pet);
+            console.log(err || pet);
         });
     });
 };
