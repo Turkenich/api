@@ -62,11 +62,9 @@ exports.create = function (req, res) {
 exports.update = function (req, res) {
 
     if (req.body.hasOwnProperty('_id')) {
-        Media.findById(req.params._id, function (err, media) {
-            for (var m in media) {
-                if (req.body[m]) {
-                    media[m] = req.body[m];
-                }
+        Media.findById(req.body._id, function (err, media) {
+            for (var m in req.body) {
+                media[m] = req.body[m];
             }
             media.save(function (err, _media) {
                 if (err) {
@@ -79,7 +77,7 @@ exports.update = function (req, res) {
                         pet.save();
                         res.send(_media);
                     });
-                }else{
+                } else {
                     res.send(_media);
                 }
             });

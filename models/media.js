@@ -16,7 +16,7 @@ var mediaSchema = new Schema({
     user_id: {type: String, required: true},
     username: {type: String, required: true},
     video: {type: String, required: false},
-    removed: {type:String, required:true, default:false},
+    removed: {type:Boolean, required:true, default:false},
     treat: {type:Schema.Types.ObjectId, required:false}
 });
 mediaSchema.plugin(timestamps);
