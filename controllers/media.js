@@ -5,19 +5,28 @@ var mongoose = require('mongoose'),
 exports.list = function (req, res) {
     Media.find({})
         .exec(function (err, pets) {
-            res.header('Access-Control-Allow-Origin', "*");
             res.send(pets);
         });
     ;
 };
 
+exports.last = function (req, res) {
+    Media.find({})
+        .limit(1)
+        .sort('-_id')
+        .exec(function (err, pets) {
+            if (!err) res.send(pets[0]);
+        });
+    ;
+};
+
 exports.create = function (req, res) {
-/*
-    if (!req.body.hasOwnProperty('pet') || !req.body.hasOwnProperty('type') || !req.body.hasOwnProperty('url')) {
-        res.send('missing param', 500);
-        return;
-    }
-*/
+    /*
+     if (!req.body.hasOwnProperty('pet') || !req.body.hasOwnProperty('type') || !req.body.hasOwnProperty('url')) {
+     res.send('missing param', 500);
+     return;
+     }
+     */
 
     if (req.body.hasOwnProperty('pet')) {
         Pet.findById(req.body.pet, function (err, pet) {
@@ -35,8 +44,8 @@ exports.create = function (req, res) {
             });
         });
     } else {
-        Media.find({ext_id:req.body.ext_id }, function (err, _media) {
-            if(_media.length == 0){
+        Media.find({ext_id: req.body.ext_id }, function (err, _media) {
+            if (_media.length == 0) {
                 var media = new Media(req.body);
                 media.save(function (err) {
                     if (err) {
@@ -51,23 +60,22 @@ exports.create = function (req, res) {
 };
 
 exports.update = function (req, res) {
-    /*
-     if (req.body.hasOwnProperty('id')) {
-     Media.findById(req.params.id, function (err, media) {
-     for (var m in media) {
-     if (req.body[m]) {
-     media[m] = req.body[m];
-     }
-     }
-     media.save(function (err, _media) {
-     if (err) {
-     console.error(err.err);
-     res.send(err)
-     }
-     });
-     });
-     }
-     */
+
+    if (req.body.hasOwnProperty('id')) {
+        Media.findById(req.params.id, function (err, media) {
+            for (var m in media) {
+                if (req.body[m]) {
+                    media[m] = req.body[m];
+                }
+            }
+            media.save(function (err, _media) {
+                if (err) {
+                    console.error(err.err);
+                    res.send(err)
+                }
+            });
+        });
+    }
 
     if (req.body.hasOwnProperty('id') && req.body.hasOwnProperty('pet')) {
         Pet.findById(req.body.pet, function (err, pet) {
