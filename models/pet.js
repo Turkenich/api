@@ -5,11 +5,15 @@ var mongoose = require('mongoose'),
 
 //schema
 var petSchema = new Schema({
-    name     : { type: String, required: true },
-    image     : { type: String, required: true },
-    kennel   : { type: Schema.Types.ObjectId, ref: 'Kennel' },
-    owner    : { type: Schema.Types.ObjectId, ref: 'User' },
-    media    : [{ type: Schema.Types.ObjectId, ref: 'Media' }]
+    name: { type: String, required: true },
+    image: { type: String, required: true },
+    age: { type: String, required: true },
+    gender: { type: String, required: true },
+    kennel: { type: Schema.Types.ObjectId, ref: 'Kennel', required: true },
+    owner: { type: Schema.Types.ObjectId, ref: 'User', required: false },
+    media: [
+        { type: Schema.Types.ObjectId, ref: 'Media' }
+    ]
 });
 petSchema.plugin(timestamps);
 

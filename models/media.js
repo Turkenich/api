@@ -14,6 +14,7 @@ var mediaSchema = new Schema({
     type: {type: String, enum: ['im', 'vd'], required: true },
     url: { type: String, required: true },
     user_id: {type: String, required: true},
+    username: {type: String, required: true},
     video: {type: String, required: true}
 });
 mediaSchema.plugin(timestamps);

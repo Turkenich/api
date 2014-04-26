@@ -6,9 +6,9 @@ var mongoose = require('mongoose'),
 
 //schema
 var kennelSchema = new Schema({
-    name     : { type: String, required: true },
-    user_id     : { type: String, required: true },
-    address  : { type: String, required: false }
+    name     : { type: String, default:'Untitled Kennel', required: true },
+    username  : { type: String, default:'username1,username2,username3', required: true },
+    address  : { type: String, default:'', required: false }
 });
 kennelSchema.plugin(timestamps);
 

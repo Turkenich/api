@@ -22,7 +22,7 @@ exports.create = function(req, res) {
             res.send(err)
         }
         else
-            res.send(_pet.name + ' has been added to the database successfully');
+            res.send(_pet);
     });
 };
 
@@ -36,12 +36,12 @@ exports.get = function(req, res) {
 
 exports.update = function(req, res) {
     Pet.findById(req.params.id, function (err, pet) {
-        var oldName = pet.name;
-        pet.name = req.body.name;
+        for (var i in req.body){
+            pet[i] = req.body[i];
+        }
         return pet.save(function (err) {
-            var msg = !err ? ('\"' + oldName + '\" has been renamed to \"' + pet.name + '\"') : err;
-            res.send(msg);
-            console.log(msg);
+            res.send(pet);
+            console.log(pet);
         });
     });
 };

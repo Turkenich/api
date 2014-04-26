@@ -10,9 +10,6 @@ exports.list = function(req, res) {
 
 exports.create = function(req, res) {
 
-    if (!req.body.name) req.body.name='name';
-    if (!req.body.user_id) req.body.user_id='1';
-
     var kennel = new Kennel(req.body);
     kennel.save(function (err, kennel) {
         if (err){
