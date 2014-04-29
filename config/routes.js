@@ -1,5 +1,6 @@
 //module dependencies
-var pets = require('../controllers/pets'),
+var cors = require('cors'),
+    pets = require('../controllers/pets'),
     users = require('../controllers/users'),
     media = require('../controllers/media'),
     treats = require('../controllers/treats'),

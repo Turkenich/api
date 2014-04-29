@@ -1,6 +1,6 @@
 // module dependencies
 var express = require('express'),
-    cors = require('cors')
+    cors = require('cors');
 
 module.exports = function (app, config) {
     app.set('port', config.app.port);
