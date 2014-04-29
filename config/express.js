@@ -1,13 +1,6 @@
 // module dependencies
-var express = require('express')
-
-var allowCrossDomain = function(req, res, next) {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-    res.header('Access-Control-Allow-Headers', 'Content-Type');
-
-    next();
-}
+var express = require('express'),
+    cors = require('cors')
 
 module.exports = function (app, config) {
     app.set('port', config.app.port);
@@ -19,7 +12,7 @@ module.exports = function (app, config) {
     app.use(express.methodOverride());
     app.use(express.cookieParser('d1A76YqsMksz6Mf5mTJI1b530EXjP87d'));
     //app.use(express.session({ secret: 'd1A76YqsMksz6Mf5mTJI1b530EXjP87d' }));
-    app.use(allowCrossDomain);
+    app.use(cors({ origin: 'http://*.bchmn.com' }));
     app.use(app.router);
 
     //specific environments

@@ -7,6 +7,9 @@ var pets = require('../controllers/pets'),
     kennels = require('../controllers/kennels');
 
 module.exports = function(app) {
+    //cors pre-flight
+    app.options('*', cors());
+
     // pets
     app.get('/', pets.list);
     app.get('/pets', pets.list);
