@@ -8,7 +8,11 @@ var mongoose = require('mongoose'),
 var userSchema = new Schema({
     name     : { type: String, default: 'New User', required: true },
     email    : { type: String, default: 'New@User.com', required:true },
-    pet      : { type: Schema.Types.ObjectId, default: null, ref: 'User' }
+    image    : { type: String, default: '', required:true },
+    pet      : { type: Schema.Types.ObjectId, default: null, ref: 'User' },
+    donations: [
+        { type: Schema.Types.ObjectId, ref: 'Donation' }
+    ]
 });
 userSchema.plugin(timestamps);
 

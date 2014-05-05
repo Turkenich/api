@@ -11,8 +11,8 @@ var petSchema = new Schema({
     gender: { type: String, required: true },
     kennel: { type: Schema.Types.ObjectId, ref: 'Kennel', required: true },
     owner: { type: Schema.Types.ObjectId, ref: 'User', required: false },
-    media: [
-        { type: Schema.Types.ObjectId, ref: 'Media' }
+    donations: [
+        { type: Schema.Types.ObjectId, ref: 'Donation' }
     ]
 });
 petSchema.plugin(timestamps);

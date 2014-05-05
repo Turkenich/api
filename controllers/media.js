@@ -70,13 +70,6 @@ exports.update = function (req, res) {
                 if (err) {
                     console.error(err.err);
                     res.send(err)
-                }
-                if (req.body.hasOwnProperty('pet')) {
-                    Pet.findById(req.body.pet, function (err, pet) {
-                        pet.media.push(req.params.id);
-                        pet.save();
-                        res.send(_media);
-                    });
                 } else {
                     res.send(_media);
                 }
