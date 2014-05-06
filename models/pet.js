@@ -9,8 +9,9 @@ var petSchema = new Schema({
     image: { type: String, required: true },
     age: { type: String, required: true },
     gender: { type: String, required: true },
+    media: { type: Schema.Types.ObjectId, ref: 'Media', required: true },
     kennel: { type: Schema.Types.ObjectId, ref: 'Kennel', required: true },
-    owner: { type: Schema.Types.ObjectId, ref: 'User', required: false },
+    user: { type: Schema.Types.ObjectId, ref: 'User', required: false },
     donations: [
         { type: Schema.Types.ObjectId, ref: 'Donation' }
     ]

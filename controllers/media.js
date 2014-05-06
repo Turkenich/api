@@ -4,6 +4,8 @@ var mongoose = require('mongoose'),
 
 exports.list = function (req, res) {
     Media.find({})
+        .populate('pet')
+        .populate('donation')
         .exec(function (err, pets) {
             res.send(pets);
         });
@@ -14,6 +16,8 @@ exports.last = function (req, res) {
     Media.find({})
         .limit(1)
         .sort('-_id')
+        .populate('pet')
+        .populate('donation')
         .exec(function (err, pets) {
             if (!err) res.send(pets[0]);
         });
@@ -28,22 +32,6 @@ exports.create = function (req, res) {
      }
      */
 
-    if (req.body.hasOwnProperty('pet')) {
-        Pet.findById(req.body.pet, function (err, pet) {
-            var media = new Media({ type: req.body.type, url: req.body.url });
-            media.save(function (err, _media) {
-                if (err) {
-                    console.error(err.err);
-                    res.send(err)
-                }
-                else {
-                    pet.media.push(_media.id);
-                    pet.save();
-                    res.send(_media.url + ' [' + _media.type + '] has been added to ' + pet.name + '\'s media');
-                }
-            });
-        });
-    } else {
         Media.find({ext_id: req.body.ext_id }, function (err, _media) {
             if (_media.length == 0) {
                 var media = new Media(req.body);
@@ -51,12 +39,16 @@ exports.create = function (req, res) {
                     if (err) {
                         console.error(err.err);
                         res.send(err)
+                    }else{
+                        res
+                            .populate('pet')
+                            .populate('donation')
+                            .send(media);
                     }
                 });
             }
         });
 
-    }
 };
 
 exports.update = function (req, res) {
@@ -76,6 +68,8 @@ exports.update = function (req, res) {
             });
         });
     }
+
+
 
 
 };

@@ -1,6 +1,7 @@
 var mongoose = require('mongoose'),
     Donation = mongoose.model('Donation'),
     Media = mongoose.model('Media'),
+    User = mongoose.model('User'),
     Pet = mongoose.model('Pet');
 
 exports.list = function (req, res) {
@@ -16,19 +17,9 @@ exports.list = function (req, res) {
 
 exports.create = function (req, res) {
 
-    if (req.query.force == '1') {
-        if (!req.body.treat) req.body.treat = null;
-        if (!req.body.user) req.body.user = null;
-        if (!req.body.pet) req.body.pet = null;
-    } else {
-        if (!req.body.treat) res.send({err: 'missing treat id'});
-        if (!req.body.user) res.send({err: 'missing user id'});
-        if (!req.body.pet) res.send({err: 'missing pet id'});
-    }
-//    if (!req.body.media) res.send({err: 'missing media id'}); - media id is not required
-
-    if (req.body.media) {
-    }
+    var errs = validateReq(req, ['treat', 'user', 'pet']);
+    if (errs) res.send({err: errs});
+//  media id is not required
 
     var donation = new Donation(req.body);
     donation.save(function (err, donation) {
@@ -44,12 +35,16 @@ exports.create = function (req, res) {
                         media.save();
                     }
                 });
+            }
+            if (req.body.pet) {
                 Pet.findById(req.body.pet, function (err, pet) {
                     if (!err) {
                         pet.donations.push(donation._id);
                         pet.save();
                     }
                 });
+            }
+            if (req.body.user) {
                 User.findById(req.body.user, function (err, user) {
                     if (!err) {
                         user.donations.push(donation._id);
@@ -70,12 +65,15 @@ exports.create = function (req, res) {
 exports.get = function (req, res) {
     Donation.findById(req.params.id)
         .exec(function (err, donation) {
-            res
-                .populate('pet')
-                .populate('user')
-                .populate('treat')
-                .populate('media')
-                .send(donation);
+            if (err) res.send({err: err})
+            else {
+                res
+                    .populate('pet')
+                    .populate('user')
+                    .populate('treat')
+                    .populate('media')
+                    .send(donation);
+            }
         });
 };
 
@@ -83,21 +81,25 @@ exports.update = function (req, res) {
     Donation.findById(req.params.id, function (err, donation) {
         for (var k in req.body) {
             if (req.body[k]) {
-                if (req.body[k]['_id']){
+                if (req.body[k]['_id']) {
                     donation[k] = req.body[k]._id;
-                }else{
+                } else {
                     donation[k] = req.body[k];
                 }
             }
         }
         return donation.save(function (err) {
-            res
-                .populate('pet')
-                .populate('user')
-                .populate('treat')
-                .populate('media')
-                .send(donation);
-            console.log(err || donation);
+
+            if (err) res.send({err: err})
+            else {
+                res
+                    .populate('pet')
+                    .populate('user')
+                    .populate('treat')
+                    .populate('media')
+                    .send(donation);
+            }
+
         });
     });
 };

@@ -10,10 +10,8 @@ exports.list = function(req, res) {
 };
 
 exports.create = function(req, res) {
-    if (!req.body.hasOwnProperty('name')) {
-        res.send('missing name', 500);
-        return;
-    }
+    var errs = validateReq(req, ['name']);
+    if (errs) res.send({err: errs});
 
     var pet = new Pet(req.body);
     pet.save(function (err, _pet) {
@@ -22,6 +20,14 @@ exports.create = function(req, res) {
             res.send(err)
         }
         else
+            if (req.body.media){
+                Media.findById(req.body.media)
+                    .exec(function (err, media) {
+                        media.pet = _pet._id;
+                        media.save();
+                    });
+
+            }
             res.send(_pet);
     });
 };
