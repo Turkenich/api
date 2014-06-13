@@ -1,5 +1,7 @@
 var mongoose = require('mongoose'),
-    Pet = mongoose.model('Pet');
+    Pet = mongoose.model('Pet'),
+    Media = mongoose.model('Media'),
+    utils = require('../config/utils');
 
 exports.list = function(req, res) {
     Pet.find({})
@@ -10,7 +12,7 @@ exports.list = function(req, res) {
 };
 
 exports.create = function(req, res) {
-    var errs = validateReq(req, ['name']);
+    var errs = utils.validateReq(req, ['name']);
     if (errs) res.send({err: errs});
 
     var pet = new Pet(req.body);

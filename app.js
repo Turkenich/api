@@ -4,6 +4,7 @@ var express = require('express'),
     fs = require('fs'),
     env = process.env.NODE_ENV || 'development',
     config = require('./config/environments')[env],
+    utils = require('./config/utils'),
     mongoose = require('mongoose')
 
 require('express-namespace');
@@ -26,9 +27,6 @@ require('./config/express')(app, config);
 
 // bootstrap routes
 require('./config/routes')(app);
-
-// utils
-require('./config/utils');
 
 // web connection
 http.createServer(app).listen(app.get('port'), function(){
