@@ -1,4 +1,5 @@
 var mongoose = require('mongoose'),
+    Utils = require('../config/utils'),
     Donation = mongoose.model('Donation'),
     Media = mongoose.model('Media'),
     User = mongoose.model('User'),
@@ -17,12 +18,11 @@ exports.list = function (req, res) {
 
 exports.create = function (req, res) {
 
-    var errs = validateReq(req, ['treat', 'user', 'pet']);
+    var errs = Utils.validateReq(req, ['treat', 'user', 'pet']);
     if (errs) res.send({err: errs});
-//  media id is not required
 
     var donation = new Donation(req.body);
-    donation.save(function (err, donation) {
+    donation.save(function (err, _donation) {
         if (err) {
             console.error(err.name);
             res.send(err)
@@ -30,34 +30,12 @@ exports.create = function (req, res) {
             if (req.body.media) {
                 Media.findById(req.body.media, function (err, media) {
                     if (!err) {
-                        media.donation = donation._id;
-                        media.pet = req.body.pet;
+                        media.donation = _donation._id;
                         media.save();
                     }
                 });
             }
-            if (req.body.pet) {
-                Pet.findById(req.body.pet, function (err, pet) {
-                    if (!err) {
-                        pet.donations.push(donation._id);
-                        pet.save();
-                    }
-                });
-            }
-            if (req.body.user) {
-                User.findById(req.body.user, function (err, user) {
-                    if (!err) {
-                        user.donations.push(donation._id);
-                        user.save();
-                    }
-                });
-            }
-            res
-                .populate('pet')
-                .populate('user')
-                .populate('treat')
-                .populate('media')
-                .send(donation);
+            res.send(_donation);
         }
     });
 };
@@ -92,12 +70,7 @@ exports.update = function (req, res) {
 
             if (err) res.send({err: err})
             else {
-                res
-                    .populate('pet')
-                    .populate('user')
-                    .populate('treat')
-                    .populate('media')
-                    .send(donation);
+                res.send(donation);
             }
 
         });

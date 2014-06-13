@@ -39,10 +39,7 @@ exports.create = function (req, res) {
                     console.error(err.err);
                     res.send(err)
                 } else {
-                    res
-                        .populate('pet')
-                        .populate('donation')
-                        .send(media);
+                    res.send(media);
                 }
             });
         }

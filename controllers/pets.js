@@ -1,7 +1,7 @@
 var mongoose = require('mongoose'),
+    Utils = require('../config/utils'),
     Pet = mongoose.model('Pet'),
-    Media = mongoose.model('Media'),
-    utils = require('../config/utils');
+    Media = mongoose.model('Media');
 
 exports.list = function(req, res) {
     Pet.find({})
@@ -12,7 +12,7 @@ exports.list = function(req, res) {
 };
 
 exports.create = function(req, res) {
-    var errs = utils.validateReq(req, ['name']);
+    var errs = Utils.validateReq(req, ['name']);
     if (errs) res.send({err: errs});
 
     var pet = new Pet(req.body);
@@ -36,7 +36,6 @@ exports.create = function(req, res) {
 
 exports.get = function(req, res) {
     Pet.findById(req.params.id)
-        .populate('donations')
         .exec(function (err, pet) {
             res.send(pet);
         });
