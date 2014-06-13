@@ -31,28 +31,25 @@ exports.create = function (req, res) {
      return;
      }
      */
-
-        Media.find({ext_id: req.body.ext_id }, function (err, _media) {
-            if (_media.length == 0) {
-                var media = new Media(req.body);
-                media.save(function (err) {
-                    if (err) {
-                        console.error(err.err);
-                        res.send(err)
-                    }else{
-                        res
-                            .populate('pet')
-                            .populate('donation')
-                            .send(media);
-                    }
-                });
-            }
-        });
-
+    Media.find({ext_id: req.body.ext_id }, function (err, _media) {
+        if (_media.length == 0) {
+            var media = new Media(req.body);
+            media.save(function (err) {
+                if (err) {
+                    console.error(err.err);
+                    res.send(err)
+                } else {
+                    res
+                        .populate('pet')
+                        .populate('donation')
+                        .send(media);
+                }
+            });
+        }
+    });
 };
 
 exports.update = function (req, res) {
-
     if (req.body.hasOwnProperty('_id')) {
         Media.findById(req.body._id, function (err, media) {
             for (var m in req.body) {
@@ -68,10 +65,6 @@ exports.update = function (req, res) {
             });
         });
     }
-
-
-
-
 };
 
 exports.delete = function (req, res) {
