@@ -7,8 +7,8 @@ var mongoose = require('mongoose'),
 //schema
 var treatSchema = new Schema({
     name     : { type: String, default:'Untitled Treat', required: true },
-    image  : { type: String, default:null, required: true },
-    price  : { type: Number, default:null, required: true }
+    image  : { type: String, default:' ', required: true },
+    price  : { type: Number, default:0, required: true }
 });
 treatSchema.plugin(timestamps);
 

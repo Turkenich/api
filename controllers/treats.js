@@ -1,4 +1,5 @@
 var mongoose = require('mongoose'),
+    Utils = require('../config/utils'),
     Treat = mongoose.model('Treat');
 
 exports.list = function(req, res) {
@@ -10,14 +11,17 @@ exports.list = function(req, res) {
 
 exports.create = function(req, res) {
 
+    var errs = Utils.validateReq(req, ['name', 'price']);
+    if (errs) res.send({err: errs});
+
     var treat = new Treat(req.body);
-    treat.save(function (err, treat) {
+    treat.save(function (err, _treat) {
         if (err){
             console.error(err.name);
             res.send(err)
         }
         else
-            res.send(treat);
+            res.send(_treat);
     });
 };
 

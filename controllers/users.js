@@ -1,7 +1,11 @@
 var mongoose = require('mongoose'),
+    Utils = require('../config/utils'),
     User = mongoose.model('User');
 
 exports.create = function(req, res) {
+    var errs = Utils.validateReq(req, ['name', 'image']);
+    if (errs) res.send({err: errs});
+
     var user = new User(req.body);
     user.save(function (err, _user) {
         if (err){
