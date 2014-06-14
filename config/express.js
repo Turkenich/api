@@ -16,7 +16,7 @@ module.exports = function (app, config) {
         origin: function(origin, callback){
             callback(null, ((origin.indexOf('bchmn.com') !== -1) || (origin.indexOf('localhost') !== -1) || (origin.indexOf('127.0.0.1') !== -1)));
         }
-    })*/);
+    }*/));
     app.use(app.router);
 
     //specific environments
