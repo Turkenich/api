@@ -1,11 +1,11 @@
 var mongoose = require('mongoose'),
     Utils = require('../config/utils'),
     Pet = mongoose.model('Pet'),
+    Donation = mongoose.model('Donation'),
     Media = mongoose.model('Media');
 
 exports.list = function(req, res) {
     Pet.find({})
-        .populate('donations')
         .exec(function (err, pets) {
             res.send(pets);
         });
@@ -37,7 +37,11 @@ exports.create = function(req, res) {
 exports.get = function(req, res) {
     Pet.findById(req.params.id)
         .exec(function (err, pet) {
-            res.send(pet);
+            Donation.find({'pet':pet.id})
+                .exec(function(err, donations){
+                    pet.donations = donations;
+                    res.send(pet);
+                });
         });
 };
 
