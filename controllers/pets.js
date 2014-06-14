@@ -36,8 +36,12 @@ exports.create = function(req, res) {
 
 exports.get = function(req, res) {
     Pet.findById(req.params.id)
+        .populate('donations')
         .exec(function (err, pet) {
             Donation.find({'pet':pet.id})
+                .populate('user')
+                .populate('treat')
+                .populate('media')
                 .exec(function(err, donations){
                     pet.donations = donations;
                     res.send(pet);
