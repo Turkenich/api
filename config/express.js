@@ -12,11 +12,11 @@ module.exports = function (app, config) {
     app.use(express.methodOverride());
     app.use(express.cookieParser('d1A76YqsMksz6Mf5mTJI1b530EXjP87d'));
     //app.use(express.session({ secret: 'd1A76YqsMksz6Mf5mTJI1b530EXjP87d' }));
-    app.use(cors({
+    app.use(cors(/*{
         origin: function(origin, callback){
             callback(null, ((origin.indexOf('bchmn.com') !== -1) || (origin.indexOf('localhost') !== -1) || (origin.indexOf('127.0.0.1') !== -1)));
         }
-    }));
+    })*/);
     app.use(app.router);
 
     //specific environments
