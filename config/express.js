@@ -12,12 +12,24 @@ module.exports = function (app, config) {
     app.use(express.methodOverride());
     app.use(express.cookieParser('d1A76YqsMksz6Mf5mTJI1b530EXjP87d'));
     //app.use(express.session({ secret: 'd1A76YqsMksz6Mf5mTJI1b530EXjP87d' }));
-    app.use(cors(/*{
+    app.use(cors({
+        credentials: true,
         origin: function(origin, callback){
-            callback(null, ((origin.indexOf('bchmn.com') !== -1) || (origin.indexOf('localhost') !== -1) || (origin.indexOf('127.0.0.1') !== -1)));
+           callback(null, true);
+//            ((origin.indexOf('bchmn.com') !== -1) || (origin.indexOf('treatsforlife') !== -1) || (origin.indexOf('localhost') !== -1) || (origin.indexOf('127.0.0.1') !== -1))
         }
-    }*/));
+    }));
     app.use(app.router);
+/*
+
+    app.all('*/
+/*', function (req, res, next) {
+        res.header("Access-Control-Allow-Origin", "http://localhost:9000");
+        res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+        res.header("Access-Control-Allow-Headers", "X-Requested-With, Content-Type");
+        next();
+    });
+*/
 
     //specific environments
     switch (app.get('env')) {

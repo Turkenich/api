@@ -3,18 +3,28 @@ var mongoose = require('mongoose'),
     User = mongoose.model('User');
 
 exports.create = function(req, res) {
-    var errs = Utils.validateReq(req, ['name', 'image']);
-    if (errs) res.send({err: errs});
+    var user_data = req.cookies;
+    req.body.fb_id = user_data.fb_id.replace('"','');
+    req.body.fb_at = user_data.fb_at.replace('"','');
+    var errs = Utils.validateReq(req, ['name', 'image', 'fb_id']);
+    if (errs) {
+        res.send({err: errs});
+        return;
+    }
 
-    var user = new User(req.body);
-    user.save(function (err, _user) {
-        if (err){
-            console.error(err.err);
-            res.send(err)
-        }
-        else
-            res.send(_user);
-    });
+    User.find({fb_id: req.body.fb_id})
+        .exec(function (err, users) {
+            if (users.length > 0) return;
+            var user = new User(req.body);
+            user.save(function (err, _user) {
+                if (err){
+                    console.error(err.err);
+                    res.send(err)
+                }
+                else
+                    res.send(_user);
+            });
+        });
 };
 
 exports.get = function(req, res) {
