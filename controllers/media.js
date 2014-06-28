@@ -24,6 +24,16 @@ exports.last = function (req, res) {
     ;
 };
 
+exports.get = function (req, res) {
+    Media.findById(req.params.id)
+        .populate('pet')
+        .populate('donation')
+        .exec(function (err, pet) {
+            if (!err) res.send(pet);
+        });
+    ;
+};
+
 exports.create = function (req, res) {
     /*
      if (!req.body.hasOwnProperty('pet') || !req.body.hasOwnProperty('type') || !req.body.hasOwnProperty('url')) {

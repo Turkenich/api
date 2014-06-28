@@ -6,6 +6,8 @@ var mongoose = require('mongoose'),
 
 exports.list = function(req, res) {
     Pet.find({})
+        .populate('kennel')
+        .populate('media')
         .exec(function (err, pets) {
             res.send(pets);
         });
@@ -22,6 +24,7 @@ exports.create = function(req, res) {
             res.send(err)
         }
         else
+        //update corresponding media item
             if (req.body.media){
                 Media.findById(req.body.media)
                     .exec(function (err, media) {
@@ -36,16 +39,10 @@ exports.create = function(req, res) {
 
 exports.get = function(req, res) {
     Pet.findById(req.params.id)
-        .populate('donations')
+        .populate('kennel')
+        .populate('media')
         .exec(function (err, pet) {
-            Donation.find({'pet':pet.id})
-                .populate('user')
-                .populate('treat')
-                .populate('media')
-                .exec(function(err, donations){
-                    pet.donations = donations;
-                    res.send(pet);
-                });
+            res.send(pet);
         });
 };
 
