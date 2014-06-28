@@ -6,7 +6,10 @@ var mongoose = require('mongoose'),
     Pet = mongoose.model('Pet');
 
 exports.list = function (req, res) {
-    Donation.find({})
+    var q = {};
+    if (req.query.pet_id) q['pet'] = req.query.pet_id;
+
+    Donation.find(q)
         .populate('pet')
         .populate('user')
         .populate('treat')
