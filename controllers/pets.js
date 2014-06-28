@@ -49,6 +49,7 @@ exports.get = function(req, res) {
 exports.update = function(req, res) {
     Pet.findById(req.params.id, function (err, pet) {
         for (var i in req.body){
+
             pet[i] = req.body[i];
         }
         return pet.save(function (err) {
