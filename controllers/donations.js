@@ -19,6 +19,24 @@ exports.list = function (req, res) {
         });
 };
 
+exports.approve = function (req, res) {
+    console.log('Approval request arrived');
+    console.log(req);
+    var q = {};
+    if (!req.query.item_number) return;
+    q['paypalItem'] = req.query.item_number;
+    console.log('item_number arrived');
+    console.log(req.query.item_number);
+
+    Donation.find(q)
+        .exec(function (err, donation) {
+            console.log('donation found ');
+            console.log(donation);
+            donation.payed = true;
+            donation.save();
+        });
+};
+
 exports.create = function (req, res) {
 
     var errs = Utils.validateReq(req, ['treat', 'user', 'pet']);

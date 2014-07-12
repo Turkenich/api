@@ -60,6 +60,7 @@ module.exports = function(app) {
     app.namespace('/donation', function() {
         app.get('/', donations.list);
         app.post('/', donations.create);
+        app.post('/approve', donations.approve);
         app.put('/:id', donations.update);
         app.del('/:id', donations.delete);
     });

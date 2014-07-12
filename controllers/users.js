@@ -2,10 +2,10 @@ var mongoose = require('mongoose'),
     Utils = require('../config/utils'),
     User = mongoose.model('User');
 
-exports.create = function(req, res) {
+exports.create = function (req, res) {
     var user_data = req.cookies;
-    req.body.fb_id = user_data.fb_id.replace(/"/g,'');
-    req.body.fb_at = user_data.fb_at.replace(/"/g,'');
+    req.body.fb_id = user_data.fb_id.replace(/"/g, '');
+    req.body.fb_at = user_data.fb_at.replace(/"/g, '');
     var errs = Utils.validateReq(req, ['name', 'image', 'fb_id']);
     if (errs) {
         res.send({err: errs});
@@ -14,20 +14,27 @@ exports.create = function(req, res) {
 
     User.find({fb_id: req.body.fb_id})
         .exec(function (err, users) {
-            if (users.length > 0) return;
+            if (users.length > 0) {
+                //user already exists
+                console.log(users[0]);
+                res.send(users[0]);
+                return;
+            }
             var user = new User(req.body);
             user.save(function (err, _user) {
-                if (err){
+                if (err) {
                     console.error(err.err);
                     res.send(err)
                 }
-                else
+                else {
+                    console.log(_user);
                     res.send(_user);
+                }
             });
         });
 };
 
-exports.get = function(req, res) {
+exports.get = function (req, res) {
     User.findById(req.params.id)
         .populate('pet')
         .exec(function (err, user) {
@@ -35,14 +42,14 @@ exports.get = function(req, res) {
         });
 };
 
-exports.list = function(req, res) {
+exports.list = function (req, res) {
     User.find({})
         .exec(function (err, users) {
             res.send(users);
         });
 };
 
-exports.update = function(req, res) {
+exports.update = function (req, res) {
     User.findById(req.params.id, function (err, user) {
         //TODO
         return user.save(function (err) {
@@ -51,7 +58,7 @@ exports.update = function(req, res) {
     });
 };
 
-exports.delete = function(req, res){
+exports.delete = function (req, res) {
     return User.findById(req.params.id, function (err, user) {
         return user.remove(function (err) {
             if (!err) {
