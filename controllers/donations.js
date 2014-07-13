@@ -23,17 +23,19 @@ exports.approve = function (req, res) {
     console.log('Approval request arrived');
     console.log(req);
     var q = {};
-    if (!req.query.item_number) return;
-    q['paypalItem'] = req.query.item_number;
+    if (!req.body.item_number) return;
+    q['paypalItem'] = req.body.item_number;
     console.log('item_number arrived');
-    console.log(req.query.item_number);
+    console.log(req.body.item_number);
 
     Donation.find(q)
-        .exec(function (err, donation) {
+        .exec(function (err, donations) {
             console.log('donation found ');
-            console.log(donation);
-            donation.payed = true;
-            donation.save();
+            console.log(donations);
+            for (var d= 0,donation; donation=donations[d]; d++){
+                donation.payed = true;
+                donation.save();
+            }
         });
 };
 
