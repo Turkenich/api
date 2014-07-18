@@ -15,7 +15,7 @@ exports.list = function (req, res) {
 };
 
 exports.lonely = function (req, res) {
-    Pet.find({user: {$exists: false}})
+    Pet.find({user: null})
         .populate('kennel')
         .populate('media')
         .exec(function (err, pets) {
@@ -24,7 +24,7 @@ exports.lonely = function (req, res) {
 };
 
 exports.owned = function (req, res) {
-    Pet.find({user: {$exists: true}})
+    Pet.find({user: {$not: null}})
         .populate('user')
         .populate('kennel')
         .populate('media')

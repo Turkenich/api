@@ -27,6 +27,7 @@ module.exports = function(app) {
     //users
     app.namespace('/user', function() {
         app.get('/', users.list);
+        app.get('/:id', users.get);
         app.post('/', users.create);
         app.put('/:id', users.update);
         app.del('/:id', users.delete);

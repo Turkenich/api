@@ -44,6 +44,7 @@ exports.get = function (req, res) {
 
 exports.list = function (req, res) {
     User.find({})
+        .populate('pet')
         .exec(function (err, users) {
             res.send(users);
         });
