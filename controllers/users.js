@@ -49,11 +49,12 @@ exports.list = function (req, res) {
         });
 };
 
-exports.update = function (req, res) {
+exports.update = function(req, res) {
     User.findById(req.params.id, function (err, user) {
-        //TODO
+        user = Utils.assignBodyParams(user, req.body);
         return user.save(function (err) {
-            console.log(!err ? 'updated' : err);
+            res.send(user);
+            console.log(err || user);
         });
     });
 };

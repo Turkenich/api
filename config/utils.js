@@ -7,3 +7,13 @@ exports.validateReq = function(req, fields){
     }
     return errs.length>0 ? errs : false;
 }
+
+exports.assignBodyParams = function(obj, body){
+    for (var i=0 ,field; field=body[i]; i++) {
+        if (typeof(field) == 'object' && body[i]._id)
+            obj[i] = field._id;
+        else
+            obj[i] = field || null;
+    }
+    return obj;
+}
