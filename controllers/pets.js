@@ -24,7 +24,7 @@ exports.lonely = function (req, res) {
 };
 
 exports.owned = function (req, res) {
-    Pet.find({user: {$not: null}})
+    Pet.find({user: {$ne: null}})
         .populate('user')
         .populate('kennel')
         .populate('media')
@@ -59,6 +59,7 @@ exports.create = function (req, res) {
 
 exports.get = function (req, res) {
     Pet.findById(req.params.id)
+        .populate('user')
         .populate('kennel')
         .populate('media')
         .exec(function (err, pet) {
