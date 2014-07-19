@@ -9,11 +9,15 @@ exports.validateReq = function(req, fields){
 }
 
 exports.assignBodyParams = function(obj, body){
-    for (var i=0 ,field; field=body[i]; i++) {
-        if (typeof(field) == 'object' && body[i]._id)
+    for (var i in body) {
+        var field = body[i];
+        if (typeof(field) == 'object' && body[i] && body[i]._id)
             obj[i] = field._id;
         else
-            obj[i] = field || null;
+            if (typeof field == 'undefined')
+            obj[i] = null;
+        else
+            obj[i] = field;
     }
     return obj;
 }

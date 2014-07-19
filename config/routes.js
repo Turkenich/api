@@ -62,6 +62,8 @@ module.exports = function(app) {
     //donations
     app.namespace('/donation', function() {
         app.get('/', donations.list);
+        app.get('/given', donations.given);
+        app.get('/pending', donations.pending);
         app.post('/', donations.create);
         app.post('/approve', donations.approve);
         app.put('/:id', donations.update);

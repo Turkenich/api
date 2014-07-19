@@ -32,7 +32,7 @@ exports.approve = function (req, res) {
         .exec(function (err, donations) {
             console.log('donation found ');
             console.log(donations);
-            for (var d= 0,donation; donation=donations[d]; d++){
+            for (var d = 0, donation; donation = donations[d]; d++) {
                 donation.payed = true;
                 donation.save();
             }
@@ -68,35 +68,21 @@ exports.get = function (req, res) {
         .exec(function (err, donation) {
             if (err) res.send({err: err})
             else {
-                res
-                    .populate('pet')
-                    .populate('user')
-                    .populate('treat')
-                    .populate('media')
-                    .send(donation);
+                res.send(donation);
             }
         });
 };
 
 exports.update = function (req, res) {
     Donation.findById(req.params.id, function (err, donation) {
-        for (var k in req.body) {
-            if (req.body[k]) {
-                if (req.body[k]['_id']) {
-                    donation[k] = req.body[k]._id;
-                } else {
-                    donation[k] = req.body[k];
+        donation = Utils.assignBodyParams(donation, req.body);
+        return donation.save(function (err, _donation) {
+                if (err) res.send({err: err})
+                else {
+                    res.send(_donation);
                 }
-            }
-        }
-        return donation.save(function (err) {
 
-            if (err) res.send({err: err})
-            else {
-                res.send(donation);
-            }
-
-        });
+            });
     });
 };
 
@@ -113,4 +99,30 @@ exports.delete = function (req, res) {
             }
         });
     });
+}
+
+exports.pending = function (req, res) {
+    var q = {pet: req.query.pet_id, given: false};
+
+    Donation.find(q)
+        .populate('pet')
+        .populate('user')
+        .populate('treat')
+        .populate('media')
+        .exec(function (err, Donations) {
+            res.send(Donations);
+        });
+}
+
+exports.given = function (req, res) {
+    var q = {pet: req.query.pet_id, given: true};
+
+    Donation.find(q)
+        .populate('pet')
+        .populate('user')
+        .populate('treat')
+        .populate('media')
+        .exec(function (err, Donations) {
+            res.send(Donations);
+        });
 }
