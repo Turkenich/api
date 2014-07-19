@@ -21,7 +21,6 @@ exports.list = function (req, res) {
 
 exports.approve = function (req, res) {
     console.log('Approval request arrived');
-    console.log(req);
     var q = {};
     if (!req.body.item_number) return;
     q['paypalItem'] = req.body.item_number;
@@ -32,10 +31,11 @@ exports.approve = function (req, res) {
         .exec(function (err, donations) {
             console.log('donation found ');
             console.log(donations);
-            for (var d = 0, donation; donation = donations[d]; d++) {
+            for (var donation, d = 0; donation = donations[d]; d++) {
                 donation.payed = true;
                 donation.save();
             }
+            res.send(true);
         });
 };
 
@@ -102,7 +102,7 @@ exports.delete = function (req, res) {
 }
 
 exports.pending = function (req, res) {
-    var q = {pet: req.query.pet_id, given: false};
+    var q = {pet: req.query.pet_id, payed: true, media: null};
 
     Donation.find(q)
         .populate('pet')
@@ -115,7 +115,7 @@ exports.pending = function (req, res) {
 }
 
 exports.given = function (req, res) {
-    var q = {pet: req.query.pet_id, given: true};
+    var q = {pet: req.query.pet_id, payed: true, media: {$ne: null}};
 
     Donation.find(q)
         .populate('pet')
