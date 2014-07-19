@@ -23,7 +23,7 @@ exports.lonely = function (req, res) {
         });
 };
 
-exports.owned = function (req, res) {
+exports.adopted = function (req, res) {
     Pet.find({user: {$ne: null}})
         .populate('user')
         .populate('kennel')

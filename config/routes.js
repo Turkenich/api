@@ -17,7 +17,7 @@ module.exports = function(app) {
     app.namespace('/pet', function() {
         app.get('/', pets.list);
         app.get('/lonely', pets.lonely);
-        app.get('/owned', pets.owned);
+        app.get('/adopted', pets.adopted);
         app.post('/', pets.create);
         app.get('/:id', pets.get);
         app.put('/:id', pets.update);
