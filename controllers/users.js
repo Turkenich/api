@@ -35,7 +35,7 @@ exports.create = function (req, res) {
 };
 
 exports.get = function (req, res) {
-    User.findById(req.params.id)
+    User.findById(req.params.id || req.cookies.user_id)
         .populate('pet')
         .exec(function (err, user) {
             res.send(user);
@@ -43,7 +43,7 @@ exports.get = function (req, res) {
 };
 
 exports.list = function (req, res) {
-    User.find({})
+    User.find(req.query)
         .populate('pet')
         .exec(function (err, users) {
             res.send(users);
