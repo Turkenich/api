@@ -23,7 +23,7 @@ module.exports = function(app) {
         app.put('/:id', pets.update);
         app.del('/:id', pets.delete);
     });
-    
+
 
     //users
     app.namespace('/user', function() {

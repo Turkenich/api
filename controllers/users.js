@@ -54,7 +54,7 @@ exports.update = function(req, res) {
     User.findById(req.params.id, function (err, user) {
         user = Utils.assignBodyParams(user, req.body);
         return user.save(function (err) {
-            res.send(user);
+            res.send(err || user);
             console.log(err || user);
         });
     });

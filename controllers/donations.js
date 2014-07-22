@@ -35,7 +35,7 @@ exports.approve = function (req, res) {
                 donation.payed = true;
                 donation.save();
             }
-            res.send(true);
+            res.send({approved:true});
         });
 };
 
