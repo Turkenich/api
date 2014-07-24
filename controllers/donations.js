@@ -6,7 +6,7 @@ var mongoose = require('mongoose'),
     Pet = mongoose.model('Pet');
 
 exports.list = function (req, res) {
-    var q = {};
+    var q = req.query;
     if (req.query.pet_id) q['pet'] = req.query.pet_id;
 
     Donation.find(q)
@@ -50,6 +50,7 @@ exports.create = function (req, res) {
             console.error(err.name);
             res.send(err)
         } else {
+            //update media
             if (req.body.media) {
                 Media.findById(req.body.media, function (err, media) {
                     if (!err) {
@@ -58,6 +59,7 @@ exports.create = function (req, res) {
                     }
                 });
             }
+
             res.send(_donation);
         }
     });
@@ -87,10 +89,19 @@ exports.update = function (req, res) {
 };
 
 exports.delete = function (req, res) {
-    return Donation.findById(req.params.id, function (err, Donation) {
-        return Donation.remove(function (err) {
+    //todo remove from user / media / pet
+    return Donation.findById(req.params.id, function (err, donation) {
+        if (!donation) return;
+        //remove donation from media
+        Media.find({donation: donation._id}, function(err, medias){
+            if (err || !medias || medias.length < 1) return;
+            var media = medias[0];
+            media.donation = null;
+            media.save();
+        });
+        return donation.remove(function (err, _donation) {
             if (!err) {
-                var message = Donation.name + ' [' + req.params.id + '] has been deleted successfully';
+                var message = _donation.name + ' [' + req.params.id + '] has been deleted successfully';
                 console.log(message);
                 res.send(message);
             } else {

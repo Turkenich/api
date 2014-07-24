@@ -65,6 +65,7 @@ module.exports = function(app) {
         app.get('/', donations.list);
         app.get('/given', donations.given);
         app.get('/pending', donations.pending);
+        app.get('/:id', donations.get);
         app.post('/', donations.create);
         app.post('/approve', donations.approve);
         app.put('/:id', donations.update);

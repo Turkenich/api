@@ -12,9 +12,6 @@ var userSchema = new Schema({
     fb_id    : { type: String, default: ' ', required:true },
     fb_at    : { type: String, default: ' ', required:true },
     pet      : { type: Schema.Types.ObjectId, default: null, ref: 'Pet' },
-    donations: [
-        { type: Schema.Types.ObjectId, ref: 'Donation' }
-    ]
 });
 userSchema.plugin(timestamps);
 

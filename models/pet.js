@@ -12,9 +12,6 @@ var petSchema = new Schema({
     media: { type: Schema.Types.ObjectId, ref: 'Media', required: true },
     kennel: { type: Schema.Types.ObjectId, ref: 'Kennel', required: true },
     user: { type: Schema.Types.ObjectId, ref: 'User', required: false },
-    donations: [
-        { type: Schema.Types.ObjectId, ref: 'Donation' }
-    ]
 });
 petSchema.plugin(timestamps);
 

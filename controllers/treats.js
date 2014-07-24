@@ -34,11 +34,8 @@ exports.get = function(req, res) {
 
 exports.update = function(req, res) {
     Treat.findById(req.params.id, function (err, treat) {
-        for (var k in req.body){
-            if (req.body[k])
-                treat[k] = req.body[k];
-        }
-        return treat.save(function (err) {
+        treat = Utils.assignBodyParams(treat, req.body);
+        return treat.save(function (err, treat) {
             res.send(treat);
             console.log(err || treat);
         });

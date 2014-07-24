@@ -76,6 +76,7 @@ exports.update = function (req, res) {
 
 exports.delete = function (req, res) {
     return Media.findById(req.params.id, function (err, media) {
+        if (!media) return;
         return media.remove(function (err) {
             if (!err) {
                 var message = media.id + ' has been deleted successfully';

@@ -2,7 +2,8 @@ var mongoose = require('mongoose'),
     Utils = require('../config/utils'),
     Pet = mongoose.model('Pet'),
     Donation = mongoose.model('Donation'),
-    Media = mongoose.model('Media');
+    Media = mongoose.model('Media'),
+    User = mongoose.model('User');
 
 exports.list = function (req, res) {
     Pet.find({})
@@ -79,6 +80,28 @@ exports.update = function (req, res) {
 
 exports.delete = function (req, res) {
     return Pet.findById(req.params.id, function (err, pet) {
+        if (!pet) return;
+        //remove pet from user
+        User.find({pet: pet._id}, function(err, users){
+            if (err || !users || users.length < 1) return;
+            var user = users[0];
+            user.pet = null;
+            user.save();
+        });
+        //remove pet from media
+        Media.find({pet: pet._id}, function(err, medias){
+            if (err || !medias || medias.length < 1) return;
+            var media = medias[0];
+            media.pet = null;
+            media.save();
+        });
+        //remove pet from donation
+        Donation.find({pet: pet._id}, function(err, donations){
+            if (err || !donations || donations.length < 1) return;
+            var donation = donations[0];
+            donation.pet = null;
+            donation.save();
+        });
         return pet.remove(function (err) {
             if (!err) {
                 var message = pet.name + ' [' + req.params.id + '] has been deleted successfully';
