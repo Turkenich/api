@@ -31,26 +31,35 @@ exports.approve = function (req, res) {
         .exec(function (err, donations) {
             console.log('donation found ');
             console.log(donations);
+
+            var newAdoption = false;
             for (var donation, d = 0; donation = donations[d]; d++) {
                 donation.payed = true;
                 donation.save();
 
                 var pet_id = donation.pet;
                 var user_id = donation.user;
+
                 User.find({_id: user_id}, function (err, users) {
                     if (err || !users || users.length < 1) return;
                     var user = users[0];
-                    user.pet = pet_id;
+                    if (user.pet != pet_id) {
+                        user.pet = pet_id;
+                        newAdoption = true;
+                    }
                     user.save();
-                });
-                Pet.find({_id: pet_id}, function (err, pets) {
-                    if (err || !pets || pets.length < 1) return;
-                    var pet = pets[0];
-                    pet.user = user_id;
-                    pet.save();
+                    Pet.find({_id: pet_id}, function (err, pets) {
+                        if (err || !pets || pets.length < 1) return;
+                        var pet = pets[0];
+                        if (pet.user != user_id) {
+                            pet.user = user_id;
+                            newAdoption = true;
+                        }
+                        pet.save();
+                        res.send({approved: true, newAdoption: newAdoption});
+                    });
                 });
             }
-            res.send({approved: true});
         });
 };
 

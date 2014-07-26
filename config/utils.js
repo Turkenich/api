@@ -14,7 +14,7 @@ exports.assignBodyParams = function(obj, body){
         if (typeof(field) == 'object' && body[i] && body[i]._id)
             obj[i] = field._id;
         else
-            if (typeof field == 'undefined')
+            if (typeof field == 'undefined' || field=="")
             obj[i] = null;
         else
             obj[i] = field;

@@ -4,8 +4,6 @@ var mongoose = require('mongoose'),
 
 exports.create = function (req, res) {
     var user_data = req.cookies;
-    console.log('req.cookies - ', req.cookies);
-    console.log('req.body - ', req.body);
     if (user_data.fb_id && !req.body.fb_id) req.body.fb_id = user_data.fb_id;
     if (user_data.fb_at && !req.body.fb_at) req.body.fb_at = user_data.fb_at;
     var errs = Utils.validateReq(req, ['name', 'image', 'fb_id']);
