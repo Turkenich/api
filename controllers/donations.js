@@ -34,8 +34,23 @@ exports.approve = function (req, res) {
             for (var donation, d = 0; donation = donations[d]; d++) {
                 donation.payed = true;
                 donation.save();
+
+                var pet_id = donation.pet;
+                var user_id = donation.user;
+                User.find({_id: user_id}, function (err, users) {
+                    if (err || !users || users.length < 1) return;
+                    var user = users[0];
+                    user.pet = pet_id;
+                    user.save();
+                });
+                Pet.find({_id: pet_id}, function (err, pets) {
+                    if (err || !pets || pets.length < 1) return;
+                    var pet = pets[0];
+                    pet.user = user_id;
+                    pet.save();
+                });
             }
-            res.send({approved:true});
+            res.send({approved: true});
         });
 };
 
@@ -79,12 +94,12 @@ exports.update = function (req, res) {
     Donation.findById(req.params.id, function (err, donation) {
         donation = Utils.assignBodyParams(donation, req.body);
         return donation.save(function (err, _donation) {
-                if (err) res.send({err: err})
-                else {
-                    res.send(_donation);
-                }
+            if (err) res.send({err: err})
+            else {
+                res.send(_donation);
+            }
 
-            });
+        });
     });
 };
 
@@ -93,7 +108,7 @@ exports.delete = function (req, res) {
     return Donation.findById(req.params.id, function (err, donation) {
         if (!donation) return;
         //remove donation from media
-        Media.find({donation: donation._id}, function(err, medias){
+        Media.find({donation: donation._id}, function (err, medias) {
             if (err || !medias || medias.length < 1) return;
             var media = medias[0];
             media.donation = null;
