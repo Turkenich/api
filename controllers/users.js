@@ -13,6 +13,7 @@ exports.create = function (req, res) {
     }
 
     User.find({fb_id: req.body.fb_id})
+        .populate('pet')
         .exec(function (err, users) {
             if (users.length > 0) {
                 //user already exists
@@ -54,8 +55,15 @@ exports.update = function(req, res) {
     User.findById(req.params.id, function (err, user) {
         user = Utils.assignBodyParams(user, req.body);
         return user.save(function (err) {
-            res.send(err || user);
-            console.log(err || user);
+            if (err){
+                res.send(err);
+            }else{
+                User.findById(req.params.id)
+                    .populate('pet')
+                    .exec(function (err, user) {
+                        res.send(user);
+                    });
+            }
         });
     });
 };
