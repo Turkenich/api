@@ -28,8 +28,11 @@ exports.create = function (req, res) {
                     res.send(err)
                 }
                 else {
-                    console.log(_user);
-                    res.send(_user);
+                    User.findById(_user.id)
+                        .populate('pet')
+                        .exec(function (err, user) {
+                            res.send(user);
+                        });
                 }
             });
         });
