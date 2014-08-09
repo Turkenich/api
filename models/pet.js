@@ -6,8 +6,8 @@ var mongoose = require('mongoose'),
 //schema
 var petSchema = new Schema({
     name: { type: String, required: true },
-    image: { type: String, required: true },
-    age: { type: String, required: true },
+    image: { type: String, required: false },
+    age: { type: String, required: false },
     gender: { type: String, required: true },
     media: { type: Schema.Types.ObjectId, ref: 'Media', required: true },
     kennel: { type: Schema.Types.ObjectId, ref: 'Kennel', required: true },
