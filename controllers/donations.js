@@ -22,10 +22,10 @@ exports.list = function (req, res) {
 exports.approve = function (req, res) {
     console.log('Approval request arrived');
     var q = {};
-    if (!req.body.item_number) return;
-    q['paypalItem'] = req.body.item_number;
-    console.log('item_number arrived');
-    console.log(req.body.item_number);
+    if (!req.body._id) return;
+    q['_id'] = req.body._id;
+    console.log('item_id arrived');
+    console.log(req.body._id);
 
     Donation.find(q)
         .exec(function (err, donations) {
