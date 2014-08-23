@@ -11,6 +11,8 @@ module.exports = function(app) {
     //cors pre-flight
     app.options('*', cors());
 
+    app.get('/ping', pets.ping);
+
     // pets
     app.get('/', pets.list);
     app.get('/pets', pets.list);

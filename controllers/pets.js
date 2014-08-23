@@ -5,6 +5,7 @@ var mongoose = require('mongoose'),
     Media = mongoose.model('Media'),
     User = mongoose.model('User');
 
+
 exports.list = function (req, res) {
     Pet.find({})
         .populate('user')
@@ -113,4 +114,8 @@ exports.delete = function (req, res) {
             }
         });
     });
+}
+
+exports.ping = function(req, res){
+    res.send('connected');
 }
