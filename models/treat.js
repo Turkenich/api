@@ -12,7 +12,7 @@ var treatSchema = new Schema({
     desc  : { type: String, default: ' ', required: true },
     fixed  : { type: Boolean, default:false, required: true },
     order  : { type: Number, default:0, required: true },
-    cart  : { type: Boolean, default:false, required: true }
+    cart  : { type: Boolean, default:false, required: false }
 });
 treatSchema.plugin(timestamps);
 
