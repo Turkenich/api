@@ -49,6 +49,7 @@ module.exports = function(app) {
     //kennels
     app.namespace('/kennel', function() {
         app.get('/', kennels.list);
+        app.get('/:id', kennels.get);
         app.post('/', kennels.create);
         app.put('/:id', kennels.update);
         app.del('/:id', kennels.delete);
@@ -57,6 +58,7 @@ module.exports = function(app) {
     //treats
     app.namespace('/treat', function() {
         app.get('/', treats.list);
+        app.get('/:id', treats.get);
         app.post('/', treats.create);
         app.put('/:id', treats.update);
         app.del('/:id', treats.delete);
