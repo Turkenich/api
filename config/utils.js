@@ -11,13 +11,13 @@ exports.validateReq = function(req, fields){
 exports.assignBodyParams = function(obj, body){
     for (var i in body) {
         var field = body[i];
-        if (typeof(field) == 'object' && body[i] && body[i]._id)
+        if (typeof(field) == 'object' && body[i] && body[i]._id){
             obj[i] = field._id;
-        else
-            if (typeof field == 'undefined' || field=="")
+        }else if (typeof field == 'undefined' || field===""){
             obj[i] = null;
-        else
+        }else{
             obj[i] = field;
+        }
     }
     return obj;
 }
