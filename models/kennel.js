@@ -10,6 +10,7 @@ var kennelSchema = new Schema({
     username : { type: String, default:'username1,username2,username3', required: true },
     info     : { type: String, default:' ', required: false },
     link     : { type: String, default:' ', required: false },
+    phone     : { type: String, default:' ', required: false },
     latlon     : { type: String, default:' ', required: false },
     address  : { type: String, default:' ', required: false }
 });
