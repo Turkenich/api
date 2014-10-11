@@ -1,5 +1,6 @@
 //module dependencies
 var cors = require('cors'),
+    services = require('../controllers/services'),
     pets = require('../controllers/pets'),
     users = require('../controllers/users'),
     media = require('../controllers/media'),
@@ -11,7 +12,13 @@ module.exports = function(app) {
     //cors pre-flight
     app.options('*', cors());
 
-    app.get('/ping', pets.ping);
+    // services
+    app.get('/ping', services.ping);
+    app.namespace('/service', function() {
+        app.get('/ping', services.ping);
+        app.get('/test_push/:reg_id', services.push_notification);
+    });
+
 
     // pets
     app.get('/', pets.list);
