@@ -16,7 +16,8 @@
     "connect-multiparty": "~1.0.3",
     "mongoose-timestamp": "~0.2.0",
     "lodash": "~2.4.1",
-    "cors": "~2.2.0"
+    "cors": "~2.2.0",
+    "node-gcm": "~0.9.12"
   },
   "devDependencies": {}
 }

@@ -7,7 +7,6 @@ var mongoose = require('mongoose'),
 
 var gcm = require('node-gcm');
 
-
 exports.push_notification = function (req, res) {
 
     var reg_id = req.params.reg_id;

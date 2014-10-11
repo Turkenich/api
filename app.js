@@ -7,7 +7,6 @@ var express = require('express'),
     utils = require('./config/utils'),
     mongoose = require('mongoose')
 
-
 require('express-namespace');
 
 // mongodb connection
