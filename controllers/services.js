@@ -58,6 +58,7 @@ exports.push_notification = function (req, res) {
      **/
     sender.send(message, registrationIds, 4, function (err, result) {
         console.log(result);
+        res.send(result);
     });
 };
 
