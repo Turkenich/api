@@ -12,18 +12,20 @@ exports.push_notification = function (req, res) {
     var reg_id = req.params.reg_id;
 
 // create a message with default values
-    var message = new gcm.Message();
+//    var message = new gcm.Message();
 
 // or with object values
-//    var message = new gcm.Message({
-//        collapseKey: 'demo',
-//        delayWhileIdle: true,
-//        timeToLive: 3,
-//        data: {
-//            key1: 'message1',
-//            key2: 'message2'
-//        }
-//    });
+    var message = new gcm.Message({
+        collapseKey: 'demo',
+        delayWhileIdle: true,
+        timeToLive: 3,
+        data:
+        {
+            message:"PhoneGap Build rocks!",
+            msgcnt:"1",
+            soundname:"woof.mp3"
+        }
+    });
 
     var sender = new gcm.Sender('AIzaSyANf_joGDhynZs0YK7Q4IbMjrKnRVC9kSE');
     var registrationIds = [];
@@ -44,10 +46,10 @@ exports.push_notification = function (req, res) {
 //    message.addData('key2', 'message2');
 
 
-    message.collapseKey = 'demo';
-    message.delayWhileIdle = true;
-    message.timeToLive = 3;
-    message.dryRun = true;
+//    message.collapseKey = 'demo';
+//    message.delayWhileIdle = true;
+//    message.timeToLive = 3;
+//    message.dryRun = true;
 // END OPTIONAL
 
 // At least one required
