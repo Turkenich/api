@@ -11,8 +11,9 @@ var userSchema = new Schema({
     image    : { type: String, default: ' ', required:true },
     fb_id    : { type: String, default: ' ', required:true },
     fb_at    : { type: String, default: ' ', required:true },
-    push_token    : { type: String, default: ' ', required:false },
     pet      : { type: Schema.Types.ObjectId, default: null, ref: 'Pet' },
+    push_token    : { type: String, default: ' ', required:false },
+    platform    : { type: String, default: 'none', required:true },
 });
 userSchema.plugin(timestamps);
 

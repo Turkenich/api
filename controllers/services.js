@@ -20,11 +20,10 @@ exports.push_notification = function (req, res) {
         collapseKey: 'demo',
         delayWhileIdle: true,
         timeToLive: 3,
-        data:
-        {
-            message:"PhoneGap Build rocks!",
-            msgcnt:"1",
-            soundname:"woof.mp3"
+        data: {
+            message: "PhoneGap Build rocks!",
+            msgcnt: "1",
+            soundname: "woof.mp3"
         }
     });
 
@@ -69,7 +68,9 @@ exports.push_notification_ios = function (req, res) {
 
     var token = req.params.token;
 
-    var options = { };
+    var options = {
+        "passphrase": 'treatsfor1M$'
+    };
 
     var apnConnection = new apn.Connection(options);
 
@@ -85,9 +86,33 @@ exports.push_notification_ios = function (req, res) {
 
     var result = apnConnection.pushNotification(note, myDevice);
 
-        console.log(result);
-        res.send(result);
+/*
+    var options = {
+        "batchFeedback": true,
+        "interval": 1000,
+        "production": false,
+//            "cert": dev_cert_path,
+//            "key": dev_key_path,
+        "passphrase": 'treatsfor1M$'
+    };
+
+    var feedback = new apn.Feedback(options);
+    feedback.on("feedback", function (devices) {
+        devices.forEach(function (item) {
+            console.log("iOS Item received", item);
+
+            // Do something with item.device and item.time;
+        });
+    });
+*/
+
+    console.log(result);
+    res.send(result);
 };
+
+/*
+ */
+
 
 exports.ping = function (req, res) {
     res.send('connected');
