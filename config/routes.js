@@ -18,6 +18,7 @@ module.exports = function(app) {
     app.namespace('/service', function() {
         app.get('/ping', services.ping);
         app.get('/test_push/:reg_id', services.push_notification);
+        app.get('/test_push_ios/:token', services.push_notification_ios);
     });
 
 

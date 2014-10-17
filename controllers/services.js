@@ -6,6 +6,7 @@ var mongoose = require('mongoose'),
     User = mongoose.model('User');
 
 var gcm = require('node-gcm');
+var apn = require('apn');
 
 exports.push_notification = function (req, res) {
 
@@ -62,6 +63,30 @@ exports.push_notification = function (req, res) {
         console.log(result);
         res.send(result);
     });
+};
+
+exports.push_notification_ios = function (req, res) {
+
+    var token = req.params.token;
+
+    var options = { };
+
+    var apnConnection = new apn.Connection(options);
+
+    var myDevice = new apn.Device(token);
+
+    var note = new apn.Notification();
+
+    note.expiry = Math.floor(Date.now() / 1000) + 3600; // Expires 1 hour from now.
+    note.badge = 3;
+    note.sound = "ping.aiff";
+    note.alert = "\uD83D\uDCE7 \u2709 You have a new message";
+    note.payload = {'messageFrom': 'Caroline'};
+
+    var result = apnConnection.pushNotification(note, myDevice);
+
+        console.log(result);
+        res.send(result);
 };
 
 exports.ping = function (req, res) {
