@@ -65,7 +65,7 @@ exports.approve = function (req, res) {
 
 exports.create = function (req, res) {
 
-    var errs = Utils.validateReq(req, ['treat', 'user', 'pet']);
+    var errs = Utils.validateReq(req, ['treat', 'pet']);
     if (errs) res.send({err: errs});
 
     var donation = new Donation(req.body);
