@@ -17,7 +17,7 @@ exports.list = function (req, res) {
 };
 
 exports.lonely = function (req, res) {
-    Pet.find({user: null})
+    Pet.find({user: {$not: {$type: 7}}})
         .populate('kennel')
         .populate('media')
         .exec(function (err, pets) {
@@ -26,7 +26,7 @@ exports.lonely = function (req, res) {
 };
 
 exports.adopted = function (req, res) {
-    Pet.find({user: {$ne: null}})
+    Pet.find({user: {$type: 7}})
         .populate('user')
         .populate('kennel')
         .populate('media')

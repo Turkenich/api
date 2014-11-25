@@ -40,6 +40,7 @@ exports.approve = function (req, res) {
                 var pet_id = donation.pet;
                 var user_id = donation.user;
 
+
                 User.find({_id: user_id}, function (err, users) {
                     if (err || !users || users.length < 1) return;
                     var user = users[0];
