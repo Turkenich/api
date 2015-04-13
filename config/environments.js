@@ -1,6 +1,6 @@
 module.exports = {
     development: {
-        db: 'mongodb://localhost/treatsforlife_dev',
+        db: 'mongodb://localhost/turkenich_dev',
         app: {
             port: 3000
         }
