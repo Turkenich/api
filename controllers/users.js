@@ -1,3 +1,4 @@
+/*
 var mongoose = require('mongoose'),
     Utils = require('../config/utils'),
     User = mongoose.model('User');
@@ -84,4 +85,4 @@ exports.delete = function (req, res) {
             }
         });
     });
-}
+}*/

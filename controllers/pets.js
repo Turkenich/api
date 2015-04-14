@@ -1,3 +1,4 @@
+/*
 var mongoose = require('mongoose'),
     Utils = require('../config/utils'),
     Pet = mongoose.model('Pet'),
@@ -118,4 +119,4 @@ exports.delete = function (req, res) {
 
 exports.ping = function(req, res){
     res.send('connected');
-}
+}*/

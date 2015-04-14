@@ -1,3 +1,4 @@
+/*
 var mongoose = require('mongoose'),
     Utils = require('../config/utils'),
     Donation = mongoose.model('Donation'),
@@ -161,4 +162,4 @@ exports.given = function (req, res) {
         .exec(function (err, Donations) {
             res.send(Donations);
         });
-}
+}*/

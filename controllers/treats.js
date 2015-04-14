@@ -1,3 +1,4 @@
+/*
 var mongoose = require('mongoose'),
     Utils = require('../config/utils'),
     Treat = mongoose.model('Treat');
@@ -55,4 +56,4 @@ exports.delete = function(req, res){
             }
         });
     });
-}
+}*/

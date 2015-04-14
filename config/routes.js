@@ -1,12 +1,15 @@
 //module dependencies
 var cors = require('cors'),
     services = require('../controllers/services'),
-    pets = require('../controllers/pets'),
-    users = require('../controllers/users'),
-    media = require('../controllers/media'),
-    treats = require('../controllers/treats'),
-    donations = require('../controllers/donations'),
-    kennels = require('../controllers/kennels');
+    element = require('../controllers/element'),
+    coating = require('../controllers/coating'),
+    elementFeatures = require('../controllers/elementFeatures'),
+    elementType = require('../controllers/elementType'),
+    jewellery = require('../controllers/jewellery'),
+    order = require('../controllers/order'),
+    provider = require('../controllers/provider'),
+    settings = require('../controllers/settings'),
+    material = require('../controllers/material');
 
 
 module.exports = function(app) {
@@ -15,16 +18,12 @@ module.exports = function(app) {
 
     // services
     app.get('/ping', services.ping);
-    app.namespace('/service', function() {
-        app.get('/ping', services.ping);
-        app.get('/test_push/:reg_id', services.push_notification);
-        app.get('/test_push_ios/:token', services.push_notification_ios);
-    });
 
 
     // pets
-    app.get('/', pets.list);
-    app.get('/pets', pets.list);
+    app.get('/', provider.list);
+    app.get('/testadd', provider.testadd);
+/*
     app.namespace('/pet', function() {
         app.get('/', pets.list);
         app.get('/lonely', pets.lonely);
@@ -84,4 +83,5 @@ module.exports = function(app) {
         app.put('/:id', donations.update);
         app.del('/:id', donations.delete);
     });
+*/
 };

@@ -1,3 +1,4 @@
+/*
 var mongoose = require('mongoose'),
     Pet = mongoose.model('Pet'),
     Media = mongoose.model('Media');
@@ -35,12 +36,14 @@ exports.get = function (req, res) {
 };
 
 exports.create = function (req, res) {
-    /*
+    */
+/*
      if (!req.body.hasOwnProperty('pet') || !req.body.hasOwnProperty('type') || !req.body.hasOwnProperty('url')) {
      res.send('missing param', 500);
      return;
      }
-     */
+     *//*
+
     Media.find({ext_id: req.body.ext_id }, function (err, _media) {
         if (_media.length == 0) {
             var media = new Media(req.body);
@@ -88,4 +91,4 @@ exports.delete = function (req, res) {
             }
         });
     });
-};
+};*/
