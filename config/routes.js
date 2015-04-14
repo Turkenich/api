@@ -21,19 +21,24 @@ module.exports = function(app) {
 
 
     // pets
-    app.get('/', provider.list);
-    app.get('/testadd', provider.testadd);
-/*
-    app.namespace('/pet', function() {
-        app.get('/', pets.list);
-        app.get('/lonely', pets.lonely);
-        app.get('/adopted', pets.adopted);
-        app.post('/', pets.create);
-        app.get('/:id', pets.get);
-        app.put('/:id', pets.update);
-        app.del('/:id', pets.delete);
+    app.get('/', element.list);
+    app.namespace('/elements', function() {
+        app.get('/', element.list);
+        app.post('/', element.create);
+        app.get('/:id', element.get);
+        app.put('/:id', element.update);
+        app.del('/:id', element.delete);
     });
 
+    app.namespace('/elementTypes', function() {
+        app.get('/', elementType.list);
+        app.post('/', elementType.create);
+        app.get('/:id', elementType.get);
+        app.put('/:id', elementType.update);
+        app.del('/:id', elementType.delete);
+    });
+
+    /*
 
     //users
     app.namespace('/user', function() {

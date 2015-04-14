@@ -8,7 +8,7 @@ exports.validateReq = function(req, fields){
     return errs.length>0 ? errs : false;
 }
 
-exports.assignBodyParams = function(obj, body){
+var assignBodyParams = function (obj, body){
     for (var i in body) {
         var field = body[i];
         if (typeof(field) == 'object' && body[i] && body[i]._id){
@@ -20,6 +20,10 @@ exports.assignBodyParams = function(obj, body){
         }
     }
     return obj;
+}
+
+exports.assignBodyParams = function (obj, body){
+    assignBodyParams(obj, body);
 }
 
 
@@ -58,7 +62,7 @@ exports.get = function(Model, req, res) {
 
 exports.update = function(Model, req, res) {
     Model.findById(req.params.id, function (err, model) {
-        model = Utils.assignBodyParams(model, req.body);
+        model = assignBodyParams(model, req.body);
         return model.save(function (err, model) {
             res.send(model);
             console.log(err || model);

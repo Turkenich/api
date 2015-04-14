@@ -15,4 +15,4 @@ var schema = new Schema({
 });
 schema.plugin(timestamps);
 
-mongoose.model('settings', schema);
+mongoose.model('Settings', schema);

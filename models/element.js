@@ -6,11 +6,11 @@ var mongoose = require('mongoose'),
 
 //schema
 var schema = new Schema({
-    elementType: { type: Schema.Types.ObjectId, ref: 'elementType', required: false },
-    material: { type: Schema.Types.ObjectId, ref: 'material', required: false },
-    coating: { type: Schema.Types.ObjectId, ref: 'coating', required: false },
-    elementFeatures: { type: Schema.Types.ObjectId, ref: 'elementFeatures', required: false },
-    provider: { type: Schema.Types.ObjectId, ref: 'provider', required: false },
+    elementType: { type: Schema.Types.ObjectId, ref: 'ElementType', required: false },
+    material: { type: Schema.Types.ObjectId, ref: 'Material', required: false },
+    coating: { type: Schema.Types.ObjectId, ref: 'Coating', required: false },
+    elementFeatures: { type: Schema.Types.ObjectId, ref: 'ElementFeatures', required: false },
+    provider: { type: Schema.Types.ObjectId, ref: 'Provider', required: false },
     providerCatalog: { type: String, default:' ', required: false },
     providerDesc: { type: String, default:' ', required: false },
     measureUnit: { type: String, enum: ['gram', 'centimeter', 'unit'], default:'gram', required: false },
