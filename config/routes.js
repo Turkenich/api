@@ -32,10 +32,20 @@ module.exports = function(app) {
 
     app.namespace('/elementTypes', function() {
         app.get('/', elementType.list);
+        app.get('/testadd', elementType.testadd);
         app.post('/', elementType.create);
         app.get('/:id', elementType.get);
         app.put('/:id', elementType.update);
         app.del('/:id', elementType.delete);
+    });
+
+    app.namespace('/materials', function() {
+        app.get('/', material.list);
+        app.get('/testadd', material.testadd);
+        app.post('/', material.create);
+        app.get('/:id', material.get);
+        app.put('/:id', material.update);
+        app.del('/:id', material.delete);
     });
 
     /*

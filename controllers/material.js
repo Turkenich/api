@@ -10,3 +10,16 @@ for (var i=0, method; method=Utils.defaultMethods[i]; i++){
     exports.update = function (req, res) { Utils.update(Model, req, res); }
     exports.delete = function (req, res) { Utils.delete(Model, req, res); }
 }
+
+exports.testadd = function(){
+    var m = new Model;
+    m.name = 'כסף';
+    m.price = 17;
+    m.save();
+
+    var m = new Model;
+    m.name = 'פליז';
+    m.price = 7;
+    m.save();
+
+}
