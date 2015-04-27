@@ -5,7 +5,7 @@ var cors = require('cors'),
     coating = require('../controllers/coating'),
     elementFeatures = require('../controllers/elementFeatures'),
     elementType = require('../controllers/elementType'),
-    jewellery = require('../controllers/jewellery'),
+    model = require('../controllers/model'),
     order = require('../controllers/order'),
     provider = require('../controllers/provider'),
     settings = require('../controllers/settings'),
@@ -32,7 +32,6 @@ module.exports = function(app) {
 
     app.namespace('/elementTypes', function() {
         app.get('/', elementType.list);
-        app.get('/testadd', elementType.testadd);
         app.post('/', elementType.create);
         app.get('/:id', elementType.get);
         app.put('/:id', elementType.update);
@@ -41,11 +40,34 @@ module.exports = function(app) {
 
     app.namespace('/materials', function() {
         app.get('/', material.list);
-        app.get('/testadd', material.testadd);
         app.post('/', material.create);
         app.get('/:id', material.get);
         app.put('/:id', material.update);
         app.del('/:id', material.delete);
+    });
+
+    app.namespace('/providers', function() {
+        app.get('/', provider.list);
+        app.post('/', provider.create);
+        app.get('/:id', provider.get);
+        app.put('/:id', provider.update);
+        app.del('/:id', provider.delete);
+    });
+
+    app.namespace('/coatings', function() {
+        app.get('/', coating.list);
+        app.post('/', coating.create);
+        app.get('/:id', coating.get);
+        app.put('/:id', coating.update);
+        app.del('/:id', coating.delete);
+    });
+
+    app.namespace('/elementFeatures', function() {
+        app.get('/', elementFeatures.list);
+        app.post('/', elementFeatures.create);
+        app.get('/:id', elementFeatures.get);
+        app.put('/:id', elementFeatures.update);
+        app.del('/:id', elementFeatures.delete);
     });
 
     /*

@@ -1,6 +1,6 @@
 var mongoose = require('mongoose'),
     Utils = require('../config/utils'),
-    Model = mongoose.model('Jewellery');
+    Model = mongoose.model('Model');
 
 
 for (var i=0, method; method=Utils.defaultMethods[i]; i++){

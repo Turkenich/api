@@ -1,28 +1,28 @@
-exports.validateReq = function(req, fields){
+exports.validateReq = function (req, fields) {
     var errs = [];
     if (req.query.force != '1') {
-        for (var i= 0, field; field=fields[i]; i++){
+        for (var i = 0, field; field = fields[i]; i++) {
             if (!req.body[field]) errs.push('missing ' + field + '');
         }
     }
-    return errs.length>0 ? errs : false;
+    return errs.length > 0 ? errs : false;
 }
 
-var assignBodyParams = function (obj, body){
+var assignBodyParams = function (obj, body) {
     for (var i in body) {
         var field = body[i];
-        if (typeof(field) == 'object' && body[i] && body[i]._id){
+        if (typeof(field) == 'object' && field && field._id) {
             obj[i] = field._id;
-        }else if (typeof field == 'undefined' || field===""){
+        } else if (typeof field == 'undefined' || field === "") {
             obj[i] = null;
-        }else{
+        } else {
             obj[i] = field;
         }
     }
     return obj;
 }
 
-exports.assignBodyParams = function (obj, body){
+exports.assignBodyParams = function (obj, body) {
     assignBodyParams(obj, body);
 }
 
@@ -30,47 +30,48 @@ exports.assignBodyParams = function (obj, body){
 //default methods
 
 exports.defaultMethods = [
-    'list','get','create','update','delete'
+    'list', 'get', 'create', 'update', 'delete'
 ];
 
-exports.list = function(Model, req, res) {
+exports.list = function (Model, req, res) {
     Model.find({})
         .exec(function (err, Models) {
             res.send(Models);
         });
 };
 
-exports.create = function(Model, req, res) {
+exports.create = function (Model, req, res) {
 
-    var model = new Model(req.body);
-    model.save(function (err, _model) {
-        if (err){
+    var model = new Model({});
+    model.save(function (err, model) {
+        if (err) {
             console.error(err.name);
             res.send(err)
         }
-        else
-            res.send(_model);
+        else {
+            res.send(model);
+        }
     });
 };
 
-exports.get = function(Model, req, res) {
+exports.get = function (Model, req, res) {
     Model.findById(req.params.id)
         .exec(function (err, model) {
-            res.send(model);
+            res.send(err || model);
         });
 };
 
-exports.update = function(Model, req, res) {
+exports.update = function (Model, req, res) {
     Model.findById(req.params.id, function (err, model) {
         model = assignBodyParams(model, req.body);
         return model.save(function (err, model) {
-            res.send(model);
+            res.send(err || model);
             console.log(err || model);
         });
     });
 };
 
-exports.delete = function(Model, req, res){
+exports.delete = function (Model, req, res) {
     return Model.findById(req.params.id, function (err, Model) {
         return Model.remove(function (err) {
             if (!err) {

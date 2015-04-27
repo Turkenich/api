@@ -6,7 +6,7 @@ var mongoose = require('mongoose'),
 
 //schema
 var schema = new Schema({
-    jewelleryId: { type: String, required: true, index: true},
+    modelId: { type: String, required: true, index: true},
     elements: { type: String, required: true, index: true},
     image: { type: String, default:' ', required: false },
     desc: { type: String, default:' ', required: false },
@@ -24,4 +24,4 @@ var schema = new Schema({
 });
 schema.plugin(timestamps);
 
-mongoose.model('Jewellery', schema);
+mongoose.model('Model', schema);

@@ -6,8 +6,8 @@ var mongoose = require('mongoose'),
 
 //schema
 var schema = new Schema({
-    name: { type: String, required: true },
-    price: { type: Number, required: true },
+    name: { type: String, required: false },
+    price: { type: Number, required: false },
 });
 schema.plugin(timestamps);
 

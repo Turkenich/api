@@ -6,7 +6,7 @@ var mongoose = require('mongoose'),
 
 //schema
 var schema = new Schema({
-    name: { type: String, required: true },
+    name: { type: String, required: false },
 });
 schema.plugin(timestamps);
 
