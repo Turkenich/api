@@ -6,6 +6,7 @@ var mongoose = require('mongoose'),
 
 //schema
 var schema = new Schema({
+    pos: { type: Number, default: Date.now },
     name: { type: String, required: false },
     price: { type: Number, required: false   },
 });

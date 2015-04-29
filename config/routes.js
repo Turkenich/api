@@ -21,7 +21,14 @@ module.exports = function(app) {
 
 
     // pets
-    app.get('/', element.list);
+    app.namespace('/models', function() {
+        app.get('/', model.list);
+        app.post('/', model.create);
+        app.get('/:id', model.get);
+        app.put('/:id', model.update);
+        app.del('/:id', model.delete);
+    });
+
     app.namespace('/elements', function() {
         app.get('/', element.list);
         app.post('/', element.create);
