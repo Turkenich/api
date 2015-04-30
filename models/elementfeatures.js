@@ -9,6 +9,7 @@ var schema = new Schema({
     pos: { type: Number, default: Date.now },
     name: { type: String, required: false },
     price: { type: Number, required: false },
+    measureUnit: { type: String, enum: ['gram', 'centimeter', 'unit'], default:'unit', required: false },
 });
 schema.plugin(timestamps);
 
