@@ -13,7 +13,7 @@ var assignBodyParams = function (obj, body) {
         var field = body[i];
         if (typeof(field) == 'object' && field && field._id) {
             obj[i] = field._id;
-        } else if (typeof field == 'undefined' || field === "") {
+        } else if (typeof field == 'undefined' || field === "" || field === false) {
             obj[i] = null;
         } else {
             obj[i] = field;

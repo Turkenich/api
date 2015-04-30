@@ -9,6 +9,7 @@ var cors = require('cors'),
     order = require('../controllers/order'),
     provider = require('../controllers/provider'),
     settings = require('../controllers/settings'),
+    prices = require('../controllers/prices'),
     material = require('../controllers/material');
 
 
@@ -21,6 +22,14 @@ module.exports = function(app) {
 
 
     // pets
+    app.namespace('/orders', function() {
+        app.get('/', order.list);
+        app.post('/', order.create);
+        app.get('/:id', order.get);
+        app.put('/:id', order.update);
+        app.del('/:id', order.delete);
+    });
+
     app.namespace('/models', function() {
         app.get('/', model.list);
         app.post('/', model.create);
@@ -75,6 +84,22 @@ module.exports = function(app) {
         app.get('/:id', elementFeatures.get);
         app.put('/:id', elementFeatures.update);
         app.del('/:id', elementFeatures.delete);
+    });
+
+    app.namespace('/settings', function() {
+        app.get('/', settings.list);
+        app.post('/', settings.create);
+        app.get('/:id', settings.get);
+        app.put('/:id', settings.update);
+        app.del('/:id', settings.delete);
+    });
+
+    app.namespace('/prices', function() {
+        app.get('/', prices.list);
+        app.post('/', prices.create);
+        app.get('/:id', prices.get);
+        app.put('/:id', prices.update);
+        app.del('/:id', prices.delete);
     });
 
     /*

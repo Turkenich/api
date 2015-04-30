@@ -10,8 +10,6 @@ var schema = new Schema({
     USDtoILS: { type: Number, required: false },
     GBPtoILS: { type: Number, required: false },
     EURtoILS: { type: Number, required: false },
-    silverPrice: { type: Number, required: false },
-    brassPrice: { type: Number, required: false },
 });
 schema.plugin(timestamps);
 
