@@ -15,6 +15,7 @@ var schema = new Schema({
     requiredTime: { type: Number, default:null, required: false },
     weight: { type: Number, default:null, required: false },
     salePrice: { type: Number, default:null, required: false },
+    override: { type: String, default:null, required: false },
 });
 schema.plugin(timestamps);
 
