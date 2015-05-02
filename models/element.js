@@ -17,6 +17,7 @@ var schema = new Schema({
     workUnit: { type: String, enum: ['gram', 'centimeter', 'unit'], default:'unit', required: false },
     workUnitPrice: { type: Number, default:null, required: false },
     workUnitCurrency: { type: Schema.Types.ObjectId, ref: 'Prices', required: false },
+    name: { type: String, default:null, required: false },
     desc: { type: String, default:null, required: false },
     image: { type: String, default:null, required: false },
     waste: { type: Number, default:null, required: false },
