@@ -10,7 +10,7 @@ var schema = new Schema({
     models: { type: String, required: false, index: true},
     desc: { type: String, default:null, required: false },
     salePrice: { type: Number, default:0, required: false },
-    override: { type: String, default:null, required: false },
+    prices: { type: String, default:null, required: false },
 });
 schema.plugin(timestamps);
 

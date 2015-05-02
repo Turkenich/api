@@ -11,12 +11,11 @@ var schema = new Schema({
     name: { type: String, required: false, index: true},
     elements: { type: String, required: false, index: false},
     image: { type: String, default:null, required: false },
-    name: { type: String, default:null, required: false },
     desc: { type: String, default:null, required: false },
     requiredTime: { type: Number, default:null, required: false },
     weight: { type: Number, default:null, required: false },
     salePrice: { type: Number, default:null, required: false },
-    override: { type: String, default:null, required: false },
+    prices: { type: String, default:null, required: false },
 });
 schema.plugin(timestamps);
 
