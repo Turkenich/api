@@ -10,3 +10,12 @@ for (var i=0, method; method=Utils.defaultMethods[i]; i++){
     exports.update = function (req, res) { Utils.update(Model, req, res); }
     exports.delete = function (req, res) { Utils.delete(Model, req, res); }
 }
+
+exports.maxId = function(req, res){
+    Model.findOne({})
+        .sort('-modelId')  // give me the max
+        .exec(function (err, Models) {
+            res.send(Models);
+        });
+
+}

@@ -33,6 +33,7 @@ module.exports = function(app) {
     app.namespace('/models', function() {
         app.get('/', model.list);
         app.post('/', model.create);
+        app.get('/maxId', model.maxId);
         app.get('/:id', model.get);
         app.put('/:id', model.update);
         app.del('/:id', model.delete);
