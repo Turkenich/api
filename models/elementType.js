@@ -7,7 +7,7 @@ var mongoose = require('mongoose'),
 //schema
 var schema = new Schema({
     pos: { type: Number, default: Date.now },
-    name: { type: String, required: true },
+    name: { type: String, required: false },
     measureUnit: { type: String, enum: ['gram', 'centimeter', 'unit'], default:'unit', required: false },
 });
 schema.plugin(timestamps);
