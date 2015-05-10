@@ -4,6 +4,7 @@ var express = require('express'),
 
 module.exports = function (app, config) {
     app.set('port', config.app.port);
+
     app.use(express.favicon());
     app.use(express.logger('dev'));
     app.use(express.json());

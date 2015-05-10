@@ -20,6 +20,7 @@ module.exports = function(app) {
     // services
     app.get('/', services.ping);
     app.get('/ping', services.ping);
+    app.get('/authenticate', services.authenticate);
 
 
     // pets
@@ -104,3 +105,4 @@ module.exports = function(app) {
         app.del('/:id', prices.delete);
     });
 };
+

@@ -8,3 +8,6 @@ var apn = require('apn');
 exports.ping = function (req, res) {
     res.send('connected');
 }
+
+exports.authenticate = function (req, res) { Utils.authenticate(req, res); }
+
