@@ -10,6 +10,7 @@ var schema = new Schema({
     name: { type: String, required: false },
     price: { type: Number, required: false   },
     measureUnit: { type: String, enum: ['gram', 'centimeter', 'unit'], default:'gram', required: false },
+    currency: { type: Schema.Types.ObjectId, ref: 'Prices', required: false },
 });
 schema.plugin(timestamps);
 
