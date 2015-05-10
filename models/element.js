@@ -19,6 +19,8 @@ var schema = new Schema({
     workUnitCurrency: { type: Schema.Types.ObjectId, ref: 'Prices', required: false },
     name: { type: String, default:null, required: false },
     desc: { type: String, default:null, required: false },
+    comments: { type: String, default:null, required: false },
+    engDesc: { type: String, default:null, required: false },
     image: { type: String, default:null, required: false },
     waste: { type: Number, default:null, required: false },
     length: { type: Number, default:null, required: false },
