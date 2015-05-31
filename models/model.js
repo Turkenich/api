@@ -12,12 +12,16 @@ var schema = new Schema({
     elements: { type: String, required: false, index: false},
     image: { type: String, default:null, required: false },
     desc: { type: String, default:null, required: false },
+    sets: { type: String, default:null, required: false },
     comments: { type: String, default:null, required: false },
     engDesc: { type: String, default:null, required: false },
     requiredTime: { type: Number, default:null, required: false },
     weight: { type: Number, default:null, required: false },
     salePrice: { type: Number, default:null, required: false },
     prices: { type: String, default:null, required: false },
+    weights: { type: String, default:null, required: false },
+    costs: { type: String, default:null, required: false },
+    metals: { type: String, default:null, required: false },
 });
 schema.plugin(timestamps);
 
