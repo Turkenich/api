@@ -23,6 +23,7 @@ var schema = new Schema({
     engDesc: { type: String, default:null, required: false },
     image: { type: String, default:null, required: false },
     waste: { type: Number, default:null, required: false },
+    shape: { type: String, default:null, required: false },
     length: { type: Number, default:null, required: false },
     width: { type: Number, default:null, required: false },
     thickness: { type: Number, default:null, required: false },
