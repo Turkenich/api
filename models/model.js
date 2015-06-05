@@ -10,6 +10,7 @@ var schema = new Schema({
     modelId: { type: String, required: false, index: true},
     name: { type: String, required: false, index: true},
     elements: { type: String, required: false, index: false},
+    elementsStr: { type: String, required: false, index: false},
     image: { type: String, default:null, required: false },
     desc: { type: String, default:null, required: false },
     sets: { type: String, default:null, required: false },
