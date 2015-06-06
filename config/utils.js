@@ -27,7 +27,7 @@ exports.assignBodyParams = function (obj, body) {
 }
 
 function auth(req){
-    return (req.headers.__id == "b30ab1857d2e3b95fd0359abbcebb2b0");
+    return (req.headers.authorization == "b30ab1857d2e3b95fd0359abbcebb2b0");
 }
 //default methods
 
