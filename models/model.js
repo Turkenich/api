@@ -23,6 +23,7 @@ var schema = new Schema({
     weights: { type: String, default:null, required: false },
     costs: { type: String, default:null, required: false },
     metals: { type: String, default:null, required: false },
+    stones: { type: String, default:null, required: false },
 });
 schema.plugin(timestamps);
 
