@@ -7,7 +7,7 @@ var mongoose = require('mongoose'),
 //schema
 var schema = new Schema({
     name: { type: String, required: false, index: true},
-    models: { type: String, required: false, index: true},
+    models: { type: String, required: false, index: false},
     desc: { type: String, default:null, required: false },
     comments: { type: String, default:null, required: false },
     engDesc: { type: String, default:null, required: false },
