@@ -12,7 +12,7 @@ for (var i=0, method; method=Utils.defaultMethods[i]; i++){
 }
 
 exports.maxId = function(req, res){
-    Model.findOne({})
+    Model.findOne({modelType: req.query.modelType})
         .sort('-modelId')  // give me the max
         .exec(function (err, Models) {
             res.send(Models);
